@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candela Hidalgo | Psicología Gestáltica</title>
-    <meta name="description" content="Psicología Gestáltica con Candela Hidalgo. Un espacio para el autodescubrimiento y la integración emocional en el aquí y ahora.">
+    <title>Lic. Candela Hidalgo | Psicóloga Gestáltica - Turnos Online y Presencial</title>
+    <meta name="description" content="Lic. Candela Hidalgo - Psicología Gestáltica en Mar del Plata y Online. Agendá tu turno de forma rápida y personalizada por WhatsApp.">
+    
+    <!-- Google Fonts: Playfair Display (Serif) & Plus Jakarta Sans (Sans-serif) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- Header / Nav -->
+    <!-- Header / Navegación -->
     <header class="header" id="header">
         <div class="container nav-container">
-            <a href="#" class="logo">Candela Hidalgo</a>
+            <a href="#inicio" class="brand-wrapper">
+                <span class="logo">Candela Hidalgo</span>
+                <span class="logo-tagline">Licenciada en Psicología</span>
+            </a>
             
-            <button class="menu-toggle" aria-label="Abrir menú" id="menu-toggle">
+            <button class="menu-toggle" aria-label="Abrir menú de navegación" id="menu-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -27,7 +33,8 @@
                 <a href="#inicio" class="nav-link">Inicio</a>
                 <a href="#mi-enfoque" class="nav-link">Mi Enfoque</a>
                 <a href="#espacios" class="nav-link">Espacios</a>
-                <a href="#contacto" class="nav-link btn-primary-outline">Conversemos</a>
+                <a href="#agendar" class="nav-link">Agendar Turno</a>
+                <a href="#agendar" class="btn btn-secondary">Elegir Turno</a>
             </nav>
         </div>
     </header>
@@ -36,24 +43,42 @@
     <section class="hero" id="inicio">
         <div class="container hero-container">
             <div class="hero-content fade-in-up">
-                <span class="badge">Psicología Gestáltica</span>
+                <span class="badge">
+                    <span>🌿</span> Psicología Gestáltica
+                </span>
                 <h1>Habitar el <span>aquí</span> y el <span>ahora</span>.</h1>
-                <p>Te acompaño a descubrir tu propio potencial. Un espacio humano, cálido y libre de juicios para integrar tus emociones y vivir con mayor autenticidad.</p>
+                <p>Te acompaño a descubrir tu propio potencial. Un espacio humano, cálido y libre de juicios para integrar tus emociones y vivir con mayor autenticidad y bienestar.</p>
+                
                 <div class="hero-buttons">
-                    <a href="https://wa.me/5492236683822?text=Hola%20Candela,%20me%20gustar%C3%ADa%20conversar%20sobre%20un%20espacio%20terap%C3%A9utico" class="btn-primary" target="_blank">Escribime por WhatsApp</a>
+                    <a href="#agendar" class="btn btn-primary btn-large">
+                        <span>🗓️</span> Agendar un Turno
+                    </a>
+                    <a href="https://wa.me/5492236683822?text=Hola%20Candela,%20me%20gustar%C3%ADa%20hacerte%20una%20consulta%20sobre%20el%20espacio%20terap%C3%A9utico" class="btn btn-outline" target="_blank" rel="noopener">
+                        <span>💬</span> Consultar por WhatsApp
+                    </a>
                 </div>
             </div>
-            <div class="hero-image-wrapper fade-in-up" style="animation-delay: 0.2s;">
+
+            <div class="hero-image-wrapper fade-in-up" style="animation-delay: 0.15s;">
                 <div class="image-blob">
-                    <img src="fotocandela.jpeg" alt="Candela Hidalgo" class="hero-image" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop'">
+                    <img src="fotocandela.jpeg" alt="Lic. Candela Hidalgo - Psicóloga" class="hero-image" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop'">
                 </div>
-                <!-- Decoración -->
+                
+                <div class="hero-decor-badge">
+                    <div class="icon-circle">✨</div>
+                    <div class="badge-text">
+                        <strong>Atención Integral</strong>
+                        <span>Presencial & Online</span>
+                    </div>
+                </div>
+
+                <!-- Decoración en tonos celestes y suaves -->
                 <div class="blob-bg blob-1"></div>
                 <div class="blob-bg blob-2"></div>
             </div>
         </div>
         
-        <!-- SVG Wave -->
+        <!-- Curva SVG de transición -->
         <div class="wave-bottom">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                 <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,111.47,192.53,98.4,236.43,89.15,280.9,74.5,321.39,56.44Z" class="shape-fill"></path>
@@ -66,18 +91,22 @@
         <div class="container about-container">
             <div class="about-grid">
                 <div class="about-image fade-in-up">
-                    <div class="organic-shape">
+                    <div class="about-card-quote">
                         <h2>"El todo es más que la suma de sus partes."</h2>
+                        <span class="quote-author">— Enfoque Gestáltico</span>
                     </div>
                 </div>
-                <div class="about-text fade-in-up" style="animation-delay: 0.2s;">
-                    <h2 class="section-title">Encuentro Humano</h2>
-                    <p>Hola, soy <strong>Candela</strong>. Entiendo la terapia no como un consultorio frío, sino como un <strong>encuentro entre dos personas</strong>. Desde la Gestalt, no buscamos "arreglar" lo que está roto, sino iluminar lo que ya está en ti para que puedas integrarlo.</p>
-                    <p>Mi objetivo es brindarte un espacio donde puedas ser tú mismo/a, sin máscaras. Trabajaremos con tus emociones presentes, tus sensaciones corporales y tu forma de relacionarte con el mundo.</p>
+
+                <div class="about-text fade-in-up" style="animation-delay: 0.15s;">
+                    <span class="section-tag">Encuentro Humano</span>
+                    <h2 class="section-title">Un espacio seguro para encontrarte</h2>
+                    <p>Hola, soy <strong>Candela</strong>. Concibo la terapia no como un consultorio distante o frío, sino como un <strong>encuentro genuino entre dos personas</strong>. Desde la perspectiva gestáltica, no buscamos "reparar" lo que creés roto, sino iluminar tus propios recursos para que puedas integrarlos en tu vida.</p>
+                    <p>Mi compromiso es brindarte un acompañamiento cálido donde puedas ser vos mismo/a, sin máscaras, trabajando en tus emociones del presente y tu bienestar integral.</p>
+                    
                     <ul class="features-list">
-                        <li><span class="dot"></span> Enfoque en el Presente</li>
-                        <li><span class="dot"></span> Responsabilidad Personal</li>
-                        <li><span class="dot"></span> Integración Cuerpo y Mente</li>
+                        <li><span class="dot">✓</span> Enfoque en el Aquí y Ahora</li>
+                        <li><span class="dot">✓</span> Toma de Conciencia y Responsabilidad Personal</li>
+                        <li><span class="dot">✓</span> Integración de Mente, Emociones y Cuerpo</li>
                     </ul>
                 </div>
             </div>
@@ -87,52 +116,237 @@
     <!-- Espacios de Terapia -->
     <section class="services section-padding" id="espacios">
         <div class="container">
-            <div class="section-header fade-in-up">
-                <h2 class="section-title text-center">Espacios de Encuentro</h2>
-                <p class="section-subtitle text-center">Formas en las que podemos trabajar juntos para tu desarrollo personal.</p>
+            <div class="section-header text-center fade-in-up">
+                <span class="section-tag">Modalidades</span>
+                <h2 class="section-title">Espacios de Encuentro</h2>
+                <p class="section-subtitle">Diferentes alternativas terapéuticas diseñadas para acompañar tu proceso de crecimiento personal.</p>
             </div>
             
             <div class="services-grid">
                 <!-- Servicio 1 -->
                 <div class="service-card fade-in-up">
-                    <div class="card-accent"></div>
+                    <div class="service-icon">🛋️</div>
+                    <span class="service-badge">Atención Presencial</span>
                     <h3>Proceso Individual</h3>
-                    <p>Un viaje hacia tu interior. Exploraremos tus trabas, tus miedos y tus deseos más profundos para que puedas fluir con la vida en lugar de resistirla.</p>
+                    <p>Un recorrido hacia tu interior en consultorio. Exploramos bloqueos, vivencias y deseos para relacionarte de manera más libre y consciente con vos mismo y tu entorno.</p>
+                    <a href="#agendar" class="btn btn-secondary">Solicitar Turno</a>
+                </div>
+
+                <!-- Servicio 2 -->
+                <div class="service-card fade-in-up" style="animation-delay: 0.15s;">
+                    <div class="service-icon">💻</div>
+                    <span class="service-badge">Modalidad Virtual</span>
+                    <h3>Sesiones Online</h3>
+                    <p>La distancia física no impide la profundidad emocional. Sesiones por videollamada para que te conectes desde la comodidad y seguridad de tu hogar, sin importar dónde te encuentres.</p>
+                    <a href="#agendar" class="btn btn-secondary">Solicitar Turno</a>
                 </div>
 
                 <!-- Servicio 3 -->
-                <div class="service-card fade-in-up" style="animation-delay: 0.2s;">
-                    <div class="card-accent"></div>
-                    <h3>Encuentro Online</h3>
-                    <p>La distancia física no impide la cercanía emocional. Sesiones por videollamada para que podamos encontrarnos estés donde estés, en tu espacio seguro.</p>
+                <div class="service-card fade-in-up" style="animation-delay: 0.3s;">
+                    <div class="service-icon">🌱</div>
+                    <span class="service-badge">Primera Consulta</span>
+                    <h3>Admisión & Orientación</h3>
+                    <p>Un primer encuentro para conocernos, comprender tus inquietudes y definir de forma conjunta el mejor encuadre terapéutico para tus necesidades actuales.</p>
+                    <a href="#agendar" class="btn btn-secondary">Solicitar Turno</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA / Contacto -->
+    <!-- SECCIÓN DE AGENDAMIENTO DE TURNOS (NUEVO) -->
+    <section class="booking-section section-padding" id="agendar">
+        <div class="container">
+            <div class="section-header text-center fade-in-up">
+                <span class="section-tag">Agenda Online</span>
+                <h2 class="section-title">Agendá tu Turno</h2>
+                <p class="section-subtitle">Elegí la modalidad, el día y la hora que mejor te quede. Al confirmar, se abrirá WhatsApp con el mensaje listo para coordinar con Candela.</p>
+            </div>
+
+            <div class="booking-wrapper fade-in-up">
+                <!-- Formulario interactivo -->
+                <div class="booking-card">
+                    <!-- Paso 1: Modalidad -->
+                    <div class="booking-step">
+                        <div class="step-label">
+                            <span class="step-number">1</span>
+                            <span>Elegí la modalidad de atención</span>
+                        </div>
+                        <div class="options-grid">
+                            <div class="option-card selected" data-modality="Online (Videollamada)">
+                                <span class="option-icon">💻</span>
+                                <h4>Online</h4>
+                                <p>Sesión por videollamada desde cualquier lugar</p>
+                            </div>
+                            <div class="option-card" data-modality="Presencial (Consultorio)">
+                                <span class="option-icon">🛋️</span>
+                                <h4>Presencial</h4>
+                                <p>En consultorio privado (Mar del Plata)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paso 2: Selección de Día -->
+                    <div class="booking-step">
+                        <div class="step-label">
+                            <span class="step-number">2</span>
+                            <span>Seleccioná el día preferido</span>
+                        </div>
+                        <div class="days-carousel" id="days-carousel">
+                            <!-- Días dinámicos generados por JS -->
+                        </div>
+                        <div class="date-input-fallback">
+                            <span>¿Buscás otra fecha?</span>
+                            <input type="date" id="custom-date-picker" title="Elegir otra fecha">
+                        </div>
+                    </div>
+
+                    <!-- Paso 3: Selección de Horario -->
+                    <div class="booking-step">
+                        <div class="step-label">
+                            <span class="step-number">3</span>
+                            <span>Seleccioná el horario</span>
+                        </div>
+                        
+                        <div class="time-group">
+                            <div class="time-group-title">☀️ Franja Mañana</div>
+                            <div class="slots-grid">
+                                <div class="slot-chip" data-time="09:00">09:00 hs</div>
+                                <div class="slot-chip" data-time="10:00">10:00 hs</div>
+                                <div class="slot-chip" data-time="11:00">11:00 hs</div>
+                                <div class="slot-chip" data-time="12:00">12:00 hs</div>
+                            </div>
+                        </div>
+
+                        <div class="time-group" style="margin-top: 1rem;">
+                            <div class="time-group-title">🌙 Franja Tarde</div>
+                            <div class="slots-grid">
+                                <div class="slot-chip" data-time="15:00">15:00 hs</div>
+                                <div class="slot-chip" data-time="16:00">16:00 hs</div>
+                                <div class="slot-chip" data-time="17:00">17:00 hs</div>
+                                <div class="slot-chip" data-time="18:00">18:00 hs</div>
+                                <div class="slot-chip" data-time="19:00">19:00 hs</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paso 4: Datos del Paciente -->
+                    <div class="booking-step">
+                        <div class="step-label">
+                            <span class="step-number">4</span>
+                            <span>Tus datos de contacto</span>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="patient-name">Nombre y Apellido *</label>
+                                <input type="text" id="patient-name" placeholder="Ej: Martina Gómez" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="patient-phone">Teléfono / WhatsApp</label>
+                                <input type="tel" id="patient-phone" placeholder="Ej: +54 9 223 ...">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="consultation-type">Tipo de Consulta</label>
+                                <select id="consultation-type">
+                                    <option value="Primera Consulta / Admisión">Primera Consulta / Admisión</option>
+                                    <option value="Terapia Individual (Continuación)">Terapia Individual (Continuación)</option>
+                                    <option value="Consulta General">Consulta General</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="patient-notes">Motivo o comentario breve (opcional)</label>
+                                <textarea id="patient-notes" placeholder="Contame brevemente en qué te gustaría trabajar o si tenés alguna preferencia..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumen en Vivo y Botón de WhatsApp -->
+                <div class="summary-card">
+                    <h3>Resumen de tu Turno</h3>
+                    
+                    <div class="summary-items">
+                        <div class="summary-item">
+                            <div class="summary-icon">🛋️</div>
+                            <div class="summary-details">
+                                <div class="label">Modalidad</div>
+                                <div class="value" id="summary-modality">Online (Videollamada)</div>
+                            </div>
+                        </div>
+
+                        <div class="summary-item">
+                            <div class="summary-icon">📅</div>
+                            <div class="summary-details">
+                                <div class="label">Día</div>
+                                <div class="value" id="summary-date">Seleccionar fecha</div>
+                            </div>
+                        </div>
+
+                        <div class="summary-item">
+                            <div class="summary-icon">⏰</div>
+                            <div class="summary-details">
+                                <div class="label">Horario</div>
+                                <div class="value empty" id="summary-time">Seleccionar horario</div>
+                            </div>
+                        </div>
+
+                        <div class="summary-item">
+                            <div class="summary-icon">👤</div>
+                            <div class="summary-details">
+                                <div class="label">Paciente</div>
+                                <div class="value empty" id="summary-name">Ingresar tu nombre</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-cta">
+                        <button type="button" class="btn btn-whatsapp btn-large" id="btn-submit-booking">
+                            <span class="whatsapp-badge-icon">💬</span>
+                            <span>Solicitar Turno por WhatsApp</span>
+                        </button>
+                        <p class="summary-note">Al hacer clic, se abrirá WhatsApp con el mensaje estructurado para coordinar directamente con la Lic. Candela Hidalgo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Contacto Directo -->
     <section class="cta" id="contacto">
         <div class="cta-content container fade-in-up">
             <h2>Hagamos contacto</h2>
-            <p>Si sientes que es el momento de mirar hacia adentro y darle lugar a lo que sientes, escríbeme. Estoy aquí para acompañarte.</p>
-            <a href="https://wa.me/5492236683822?text=Hola%20Candela,%20me%20gustar%C3%ADa%20agendar%20un%20encuentro" class="btn-primary btn-large" target="_blank">
-                Iniciar Conversación
-            </a>
-        </div>
-        <!-- SVG Wave Top -->
-        <div class="wave-top">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,111.47,192.53,98.4,236.43,89.15,280.9,74.5,321.39,56.44Z" class="shape-fill"></path>
-            </svg>
+            <p>Si sentís que es el momento de mirar hacia adentro y darle lugar a lo que sentís, estoy aquí para acompañarte.</p>
+            
+            <div class="cta-actions">
+                <a href="#agendar" class="btn btn-light btn-large">
+                    <span>🗓️</span> Elegir Día y Horario
+                </a>
+                <a href="https://wa.me/5492236683822?text=Hola%20Candela,%20me%20gustar%C3%ADa%20conversar%20sobre%20un%20espacio%20terap%C3%A9utico" class="btn btn-whatsapp btn-large" target="_blank" rel="noopener">
+                    <span>💬</span> Enviar WhatsApp Directo
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 Candela Hidalgo -  Todos los derechos reservados.</p>
+            <div class="footer-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#mi-enfoque">Mi Enfoque</a>
+                <a href="#espacios">Espacios</a>
+                <a href="#agendar">Agendar Turno</a>
+            </div>
+            <p>&copy; 2026 Lic. Candela Hidalgo • Psicología Gestáltica • Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <!-- Botón Flotante de WhatsApp -->
+    <a href="https://wa.me/5492236683822?text=Hola%20Candela,%20quisiera%20hacerte%20una%20consulta%20sobre%20los%20turnos" class="floating-whatsapp" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+        <svg viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 1.77.814 2.8.814 3.182 0 5.768-2.587 5.768-5.766 0-3.18-2.586-5.767-5.772-5.767zm0 10.428c-.899 0-1.636-.244-2.378-.684l-.17-.101-1.758.461.469-1.713-.111-.177c-.484-.766-.74-1.503-.739-2.449.001-2.455 1.998-4.453 4.454-4.453 2.454 0 4.452 1.998 4.452 4.453 0 2.455-1.998 4.453-4.454 4.453zm2.578-3.327c-.141-.07-.834-.411-.963-.458-.129-.047-.223-.07-.317.07-.094.141-.364.458-.446.552-.082.094-.165.106-.306.035-.141-.07-.596-.22-1.135-.7-.419-.374-.702-.836-.784-.977-.082-.141-.009-.217.062-.287.063-.063.141-.165.212-.247.07-.082.094-.141.141-.235.047-.094.024-.176-.012-.247-.035-.07-.317-.764-.435-1.046-.115-.274-.232-.237-.317-.241l-.271-.005c-.094 0-.247.035-.376.176-.129.141-.494.482-.494 1.176s.506 1.364.576 1.458c.07.094.996 1.52 2.413 2.132.337.146.6.233.805.298.338.107.647.092.891.056.271-.041.834-.341.951-.67.118-.329.118-.611.082-.67-.035-.059-.129-.094-.27-.165z"/>
+        </svg>
+        <span>¿Dudas? Escribime</span>
+    </a>
 
     <script src="script.js"></script>
 </body>
