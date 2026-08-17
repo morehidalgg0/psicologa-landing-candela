@@ -1,5 +1,5 @@
 /**
- * CANDELA HIDALGO - PSICOLOGÍA GESTÁLTICA
+ * CANDELA HIDALGO - PSICOLOGÍA COGNITIVO-CONDUCTUAL INTEGRATIVA
  * Interactive Booking Engine & Site Scripts
  */
 
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Scroll Intersection Observer for Animations
     const fadeElements = document.querySelectorAll('.fade-in-up');
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.12 };
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
     const scrollObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Booking State
     const bookingState = {
         modality: 'Online (Videollamada)',
-        type: 'Primera Consulta / Admisión',
+        type: 'Primera Consulta / Evaluación Inicial',
         date: '',
         dateFormatted: '',
         time: '',
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const typeSelect = document.getElementById('consultation-type');
     const notesInput = document.getElementById('patient-notes');
 
-    // Months & Days in Spanish
+    // Spanish Calendar Strings
     const dayNames = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
     const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
     const fullDayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -213,7 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const fullDay = fullDayNames[dateObj.getDay()];
         const dayNum = dateObj.getDate();
         const fullMonth = fullMonthNames[dateObj.getMonth()];
-        const year = dateObj.getFullYear();
 
         bookingState.date = dateObj.toISOString().split('T')[0];
         bookingState.dateFormatted = `${fullDay} ${dayNum} de ${fullMonth}`;
@@ -241,12 +240,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Modality Selection Handling
     const modalityCards = document.querySelectorAll('.option-card[data-modality]');
+    function setModality(modalityValue) {
+        modalityCards.forEach(card => {
+            if (card.getAttribute('data-modality') === modalityValue) {
+                card.classList.add('selected');
+                bookingState.modality = modalityValue;
+            } else {
+                card.classList.remove('selected');
+            }
+        });
+        updateSummary();
+    }
+
     modalityCards.forEach(card => {
         card.addEventListener('click', () => {
-            modalityCards.forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-            bookingState.modality = card.getAttribute('data-modality');
-            updateSummary();
+            const val = card.getAttribute('data-modality');
+            setModality(val);
+        });
+    });
+
+    // Quick Book Buttons from Services section
+    const quickBookButtons = document.querySelectorAll('.quick-book-btn');
+    quickBookButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const targetModality = btn.getAttribute('data-modality-target');
+            if (targetModality) {
+                setModality(targetModality);
+            }
         });
     });
 
@@ -312,12 +332,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Construct WhatsApp Message
-            let message = `¡Hola Lic. Candela Hidalgo! 👋 Quisiera solicitar un turno:\n\n`;
+            // Construct WhatsApp Message for TCC Integrativa
+            let message = `¡Hola Lic. Candela Hidalgo! 👋 Quisiera solicitar un turno de Terapia Cognitivo-Conductual Integrativa:\n\n`;
             message += `🗓️ *Día:* ${bookingState.dateFormatted}\n`;
             message += `⏰ *Horario:* ${bookingState.time} hs\n`;
             message += `🛋️ *Modalidad:* ${bookingState.modality}\n`;
-            message += `🌿 *Tipo de sesión:* ${bookingState.type}\n`;
+            message += `🌿 *Tipo de consulta:* ${bookingState.type}\n`;
             message += `👤 *Paciente:* ${bookingState.name.trim()}\n`;
             
             if (bookingState.phone.trim()) {
