@@ -1,5 +1,5 @@
 /**
- * CANDELA HIDALGO - PSICOLOGÍA COGNITIVO-CONDUCTUAL INTEGRATIVA
+ * CANDELA HIDALGO - PSICÓLOGA · CLÍNICA · ENFOQUE INTEGRATIVO
  * Interactive Booking Engine & Site Scripts
  */
 
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Booking State
     const bookingState = {
         modality: 'Online (Videollamada)',
-        type: 'Primera Consulta / Evaluación Inicial',
+        type: 'Primera Consulta / Inicio de Proceso',
         date: '',
         dateFormatted: '',
         time: '',
@@ -332,8 +332,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Construct WhatsApp Message for TCC Integrativa
-            let message = `¡Hola Lic. Candela Hidalgo! 👋 Quisiera solicitar un turno de Terapia Cognitivo-Conductual Integrativa:\n\n`;
+            // Construct WhatsApp Message for Enfoque Integrativo
+            let message = `¡Hola Lic. Candela Hidalgo! 👋 Quisiera solicitar un turno:\n\n`;
             message += `🗓️ *Día:* ${bookingState.dateFormatted}\n`;
             message += `⏰ *Horario:* ${bookingState.time} hs\n`;
             message += `🛋️ *Modalidad:* ${bookingState.modality}\n`;
@@ -345,10 +345,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             if (bookingState.notes.trim()) {
-                message += `📝 *Motivo / Nota:* ${bookingState.notes.trim()}\n`;
+                message += `📝 *Motivo / Mensaje:* ${bookingState.notes.trim()}\n`;
             }
 
-            message += `\n¿Tenés disponibilidad en ese turno? ¡Muchas gracias!`;
+            message += `\n¿Tenés disponibilidad en ese horario? ¡Muchas gracias!`;
 
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
