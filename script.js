@@ -60,14 +60,36 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeElements.forEach(el => { scrollObserver.observe(el); });
 
     // =========================================================================
-    // 4. INTERACTIVE APPOINTMENT BOOKING SYSTEM (TURNERO)
+    // 4. INTERACTIVE APPOINTMENT BOOKING SYSTEM (DISPONIBILIDAD PERSONALIZADA)
     // =========================================================================
     
-    // Booking State
+    // Configuración de disponibilidad exacta por día de la semana y modalidad:
+    // 0 = Domingo, 1 = Lunes, 2 = Martes, 3 = Miércoles, 4 = Jueves, 5 = Viernes, 6 = Sábado
+    const SCHEDULE_CONFIG = {
+        1: { // Lunes
+            presencial: ['08:00', '09:00', '18:00'],
+            online: ['08:00', '09:00', '18:00']
+        },
+        2: { // Martes
+            presencial: ['18:00'],
+            online: ['18:00']
+        },
+        3: { // Miércoles
+            presencial: ['08:00', '09:00', '14:00', '15:00'],
+            online: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00']
+        },
+        4: { // Jueves
+            presencial: ['08:00', '09:00', '14:00', '15:00'],
+            online: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00']
+        }
+    };
+
+    // Estado del turno
     const bookingState = {
         modality: 'Online (Videollamada)',
         type: 'Primera Consulta / Inicio de Proceso',
         date: '',
+        dateObj: null,
         dateFormatted: '',
         time: '',
         name: '',
@@ -75,22 +97,23 @@ document.addEventListener('DOMContentLoaded', () => {
         notes: ''
     };
 
-    const phoneNumber = '5492236683822'; // Candela Hidalgo's WhatsApp Number
+    const phoneNumber = '5492236683822'; // WhatsApp Lic. Candela Hidalgo
 
-    // DOM Elements - Summary
+    // Elementos DOM
     const summaryModality = document.getElementById('summary-modality');
     const summaryDate = document.getElementById('summary-date');
     const summaryTime = document.getElementById('summary-time');
     const summaryName = document.getElementById('summary-name');
     const btnSubmitBooking = document.getElementById('btn-submit-booking');
     const daysContainer = document.getElementById('days-carousel');
+    const timeSlotsContainer = document.getElementById('time-slots-container');
     const customDateInput = document.getElementById('custom-date-picker');
     const nameInput = document.getElementById('patient-name');
     const phoneInput = document.getElementById('patient-phone');
     const typeSelect = document.getElementById('consultation-type');
     const notesInput = document.getElementById('patient-notes');
 
-    // Spanish Calendar Strings
+    // Nombres de días y meses en español
     const dayNames = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
     const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
     const fullDayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -99,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
     ];
 
-    // Helper: Update Summary Display
+    // Actualizar panel lateral de resumen
     function updateSummary() {
         if (summaryModality) {
             summaryModality.textContent = bookingState.modality;
@@ -137,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Helper: Toast Notification
+    // Toast de notificación
     function showToast(message) {
         let toast = document.getElementById('toast-alert');
         if (!toast) {
@@ -153,20 +176,139 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 
-    // Generate Dynamic Next Business Days (Mon-Fri)
+    // Renderizar horarios disponibles según el día y la modalidad
+    function renderTimeSlots() {
+        if (!timeSlotsContainer) return;
+        timeSlotsContainer.innerHTML = '';
+
+        if (!bookingState.dateObj) {
+            timeSlotsContainer.innerHTML = `<p style="color: var(--text-muted); font-size: 0.95rem;">Por favor seleccioná un día primero.</p>`;
+            return;
+        }
+
+        const dayOfWeek = bookingState.dateObj.getDay();
+        const isOnline = bookingState.modality.includes('Online');
+        const daySchedule = SCHEDULE_CONFIG[dayOfWeek];
+
+        if (!daySchedule) {
+            timeSlotsContainer.innerHTML = `
+                <div style="background: var(--celeste-bg); border-radius: var(--radius-md); padding: 1.2rem; border: 1px solid var(--cream-border); text-align: center;">
+                    <p style="color: var(--navy-primary); font-weight: 600; font-size: 0.95rem; margin-bottom: 0.2rem;">No hay turnos disponibles para este día</p>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Candela atiende de <strong>Lunes a Jueves</strong>. Por favor seleccioná otro día.</p>
+                </div>
+            `;
+            bookingState.time = '';
+            updateSummary();
+            return;
+        }
+
+        const availableSlots = isOnline ? daySchedule.online : daySchedule.presencial;
+
+        if (!availableSlots || availableSlots.length === 0) {
+            timeSlotsContainer.innerHTML = `
+                <div style="background: var(--celeste-bg); border-radius: var(--radius-md); padding: 1.2rem; border: 1px solid var(--cream-border); text-align: center;">
+                    <p style="color: var(--navy-primary); font-weight: 600; font-size: 0.95rem;">No hay horarios en modalidad presencial para este día.</p>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Podés seleccionar la modalidad <strong>Online</strong> o elegir otro día.</p>
+                </div>
+            `;
+            bookingState.time = '';
+            updateSummary();
+            return;
+        }
+
+        // Separar horarios por mañana / tarde
+        const morningSlots = availableSlots.filter(t => parseInt(t.split(':')[0], 10) < 14);
+        const afternoonSlots = availableSlots.filter(t => parseInt(t.split(':')[0], 10) >= 14);
+
+        // Si el horario seleccionado previamente no está disponible en la nueva lista, seleccionar el primero disponible
+        if (!availableSlots.includes(bookingState.time)) {
+            bookingState.time = availableSlots[0];
+        }
+
+        // Crear contenedor para mañana
+        if (morningSlots.length > 0) {
+            const morningGroup = document.createElement('div');
+            morningGroup.className = 'time-group';
+            morningGroup.innerHTML = `
+                <div class="time-group-title">☀️ Franja Mañana / Mediodía</div>
+                <div class="slots-grid" id="slots-morning"></div>
+            `;
+            timeSlotsContainer.appendChild(morningGroup);
+
+            const gridMorning = morningGroup.querySelector('#slots-morning');
+            morningSlots.forEach(slot => {
+                const chip = document.createElement('div');
+                chip.className = 'slot-chip';
+                chip.setAttribute('data-time', slot);
+                chip.textContent = `${slot} hs`;
+
+                if (slot === bookingState.time) {
+                    chip.classList.add('selected');
+                }
+
+                chip.addEventListener('click', () => {
+                    document.querySelectorAll('.slot-chip').forEach(c => c.classList.remove('selected'));
+                    chip.classList.add('selected');
+                    bookingState.time = slot;
+                    updateSummary();
+                });
+
+                gridMorning.appendChild(chip);
+            });
+        }
+
+        // Crear contenedor para tarde
+        if (afternoonSlots.length > 0) {
+            const afternoonGroup = document.createElement('div');
+            afternoonGroup.className = 'time-group';
+            if (morningSlots.length > 0) {
+                afternoonGroup.style.marginTop = '1.2rem';
+            }
+            afternoonGroup.innerHTML = `
+                <div class="time-group-title">🌙 Franja Tarde / Noche</div>
+                <div class="slots-grid" id="slots-afternoon"></div>
+            `;
+            timeSlotsContainer.appendChild(afternoonGroup);
+
+            const gridAfternoon = afternoonGroup.querySelector('#slots-afternoon');
+            afternoonSlots.forEach(slot => {
+                const chip = document.createElement('div');
+                chip.className = 'slot-chip';
+                chip.setAttribute('data-time', slot);
+                chip.textContent = `${slot} hs`;
+
+                if (slot === bookingState.time) {
+                    chip.classList.add('selected');
+                }
+
+                chip.addEventListener('click', () => {
+                    document.querySelectorAll('.slot-chip').forEach(c => c.classList.remove('selected'));
+                    chip.classList.add('selected');
+                    bookingState.time = slot;
+                    updateSummary();
+                });
+
+                gridAfternoon.appendChild(chip);
+            });
+        }
+
+        updateSummary();
+    }
+
+    // Generar los próximos días de atención disponibles (Lunes a Jueves)
     function generateDays() {
         if (!daysContainer) return;
         daysContainer.innerHTML = '';
 
         const days = [];
         let current = new Date();
-        // Start from tomorrow
+        // Empezar desde mañana
         current.setDate(current.getDate() + 1);
 
         while (days.length < 5) {
             const dayOfWeek = current.getDay();
-            // Skip weekends (0 = Sunday, 6 = Saturday)
-            if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+            // Solo incluir días donde Candela atiende (1=Lun, 2=Mar, 3=Mié, 4=Jue)
+            if (SCHEDULE_CONFIG[dayOfWeek]) {
                 days.push(new Date(current));
             }
             current.setDate(current.getDate() + 1);
@@ -176,7 +318,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const dayChip = document.createElement('div');
             dayChip.className = 'day-chip';
             if (index === 0) {
-                // Auto-select first available day
                 dayChip.classList.add('selected');
                 selectDate(dateObj);
             }
@@ -201,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
             daysContainer.appendChild(dayChip);
         });
 
-        // Set min date for custom picker to tomorrow
+        // Configurar fecha mínima para selector alternativo
         if (customDateInput) {
             const tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate() + 1);
@@ -215,30 +356,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const fullMonth = fullMonthNames[dateObj.getMonth()];
 
         bookingState.date = dateObj.toISOString().split('T')[0];
+        bookingState.dateObj = dateObj;
         bookingState.dateFormatted = `${fullDay} ${dayNum} de ${fullMonth}`;
+        
+        renderTimeSlots();
         updateSummary();
     }
 
-    // Custom Date Picker Handler
+    // Selector de fecha personalizada
     if (customDateInput) {
         customDateInput.addEventListener('change', (e) => {
             if (!e.target.value) return;
             const parts = e.target.value.split('-');
             const customDate = new Date(parts[0], parts[1] - 1, parts[2]);
+            const dayOfWeek = customDate.getDay();
 
-            // Check if weekend
-            if (customDate.getDay() === 0 || customDate.getDay() === 6) {
-                showToast('ℹ️ Candela atiende de Lunes a Viernes. Por favor seleccioná un día hábil.');
-                return;
+            // Verificar si es día de atención (Lunes a Jueves)
+            if (!SCHEDULE_CONFIG[dayOfWeek]) {
+                showToast('ℹ️ Candela atiende de Lunes a Jueves. Por favor seleccioná uno de esos días.');
             }
 
-            // Deselect day chips
+            // Deseleccionar chips predeterminados
             document.querySelectorAll('.day-chip').forEach(c => c.classList.remove('selected'));
             selectDate(customDate);
         });
     }
 
-    // Modality Selection Handling
+    // Selección de modalidad (Online / Presencial)
     const modalityCards = document.querySelectorAll('.option-card[data-modality]');
     function setModality(modalityValue) {
         modalityCards.forEach(card => {
@@ -249,6 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.remove('selected');
             }
         });
+        renderTimeSlots();
         updateSummary();
     }
 
@@ -259,10 +404,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Quick Book Buttons from Services section
+    // Botones de acceso rápido desde la sección de servicios
     const quickBookButtons = document.querySelectorAll('.quick-book-btn');
     quickBookButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click', () => {
             const targetModality = btn.getAttribute('data-modality-target');
             if (targetModality) {
                 setModality(targetModality);
@@ -270,18 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Time Slot Selection Handling
-    const slotChips = document.querySelectorAll('.slot-chip');
-    slotChips.forEach(chip => {
-        chip.addEventListener('click', () => {
-            slotChips.forEach(c => c.classList.remove('selected'));
-            chip.classList.add('selected');
-            bookingState.time = chip.getAttribute('data-time') || chip.textContent.trim();
-            updateSummary();
-        });
-    });
-
-    // Form Inputs Sync
+    // Sincronización de inputs del formulario
     if (nameInput) {
         nameInput.addEventListener('input', (e) => {
             bookingState.name = e.target.value;
@@ -307,12 +441,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Submit Booking -> Generate WhatsApp Message
+    // Enviar Reserva -> Construir y abrir WhatsApp
     if (btnSubmitBooking) {
         btnSubmitBooking.addEventListener('click', (e) => {
             e.preventDefault();
 
-            // Validation
+            // Validaciones
             if (!bookingState.name.trim()) {
                 showToast('⚠️ Por favor ingresá tu nombre completo.');
                 if (nameInput) {
@@ -332,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Construct WhatsApp Message for Enfoque Integrativo
+            // Construir mensaje enriquecido para WhatsApp
             let message = `¡Hola Lic. Candela Hidalgo! 👋 Quisiera solicitar un turno:\n\n`;
             message += `🗓️ *Día:* ${bookingState.dateFormatted}\n`;
             message += `⏰ *Horario:* ${bookingState.time} hs\n`;
@@ -360,7 +494,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize dynamic days on page load
+    // Inicializar turnero dinámico
     generateDays();
-    updateSummary();
 });
