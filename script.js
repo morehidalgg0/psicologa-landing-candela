@@ -67,8 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 0 = Domingo, 1 = Lunes, 2 = Martes, 3 = Miércoles, 4 = Jueves, 5 = Viernes, 6 = Sábado
     const SCHEDULE_CONFIG = {
         1: { // Lunes
-            presencial: ['08:00', '09:00', '18:00'],
-            online: ['08:00', '09:00', '18:00']
+            presencial: ['08:00', '09:00', '16:00', '17:00', '18:00'],
+            online: ['08:00', '09:00', '16:00', '17:00', '18:00']
         },
         2: { // Martes
             presencial: ['18:00'],
