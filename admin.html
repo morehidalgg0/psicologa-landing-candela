@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Turnos | Lic. Candela Hidalgo</title>
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+
+    <!-- Aviso de configuración pendiente -->
+    <div id="config-warning" class="admin-alert" hidden>
+        <strong>Falta configurar Neon.</strong>
+        Completá la URL de tu base en <code>NEON_DATABASE_URL</code> (archivo <code>neon-config.js</code>)
+        y ejecutá el script <code>neon-schema.sql</code> en tu proyecto de Neon.
+    </div>
+
+    <!-- Vista de Login -->
+    <div id="login-view" class="login-wrap" hidden>
+        <form id="login-form" class="login-card">
+            <span class="login-emoji">🌿</span>
+            <h1>Panel de Turnos</h1>
+            <p class="login-sub">Lic. Candela Hidalgo · Psicología Clínica</p>
+
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" autocomplete="username" placeholder="tu-email@ejemplo.com" required>
+
+            <label for="login-password">Contraseña</label>
+            <input type="password" id="login-password" autocomplete="current-password" placeholder="••••••••" required>
+
+            <button type="submit" class="btn-admin btn-admin-primary btn-block" id="login-submit">
+                Ingresar
+            </button>
+
+            <p class="login-error" id="login-error" hidden></p>
+            <p class="login-hint">El usuario se crea desde Neon Auth (managed) → /reference → /sign-up/email.</p>
+        </form>
+    </div>
+
+    <!-- Vista de la aplicación -->
+    <div id="app-view" hidden>
+        <header class="admin-header">
+            <div class="admin-brand">
+                <span class="admin-brand-mark">🌿</span>
+                <div>
+                    <strong>Panel de Turnos</strong>
+                    <span>Lic. Candela Hidalgo</span>
+                </div>
+            </div>
+            <div class="admin-header-actions">
+                <span class="admin-user" id="admin-user-email"></span>
+                <a href="index.html" target="_blank" rel="noopener" class="btn-admin btn-admin-ghost">Ver sitio ↗</a>
+                <button type="button" class="btn-admin btn-admin-ghost" id="logout-btn">Cerrar sesión</button>
+            </div>
+        </header>
+
+        <nav class="admin-tabs">
+            <button type="button" class="admin-tab active" data-tab="appointments">📅 Turnos</button>
+            <button type="button" class="admin-tab" data-tab="availability">🕐 Disponibilidad</button>
+            <button type="button" class="admin-tab" data-tab="blocks">🚫 Bloqueos</button>
+        </nav>
+
+        <main class="admin-main">
+
+            <!-- PANEL: TURNOS -->
+            <section class="admin-panel active" id="panel-appointments">
+                <div class="panel-head">
+                    <div>
+                        <h2>Turnos solicitados</h2>
+                        <p>Gestioná las solicitudes que llegan desde la página.</p>
+                    </div>
+                    <button type="button" class="btn-admin btn-admin-ghost" id="refresh-appointments">↻ Actualizar</button>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card"><span class="stat-num" id="stat-pending">0</span><span class="stat-label">Pendientes</span></div>
+                    <div class="stat-card"><span class="stat-num" id="stat-confirmed">0</span><span class="stat-label">Confirmados</span></div>
+                    <div class="stat-card"><span class="stat-num" id="stat-upcoming">0</span><span class="stat-label">Próximos</span></div>
+                    <div class="stat-card"><span class="stat-num" id="stat-total">0</span><span class="stat-label">Total</span></div>
+                </div>
+
+                <div class="filter-row">
+                    <select id="appointment-filter" class="admin-input">
+                        <option value="proximos">Próximos y pendientes</option>
+                        <option value="todos">Todos</option>
+                        <option value="pendiente">Solo pendientes</option>
+                        <option value="confirmado">Solo confirmados</option>
+                        <option value="atendido">Solo atendidos</option>
+                        <option value="cancelado">Solo cancelados</option>
+                    </select>
+                </div>
+
+                <div id="appointments-list" class="appointments-list"></div>
+            </section>
+
+            <!-- PANEL: DISPONIBILIDAD -->
+            <section class="admin-panel" id="panel-availability">
+                <div class="panel-head">
+                    <div>
+                        <h2>Disponibilidad semanal</h2>
+                        <p>Marcá los horarios en los que atendés cada día. Se repiten todas las semanas.</p>
+                    </div>
+                    <button type="button" class="btn-admin btn-admin-primary" id="save-availability">Guardar cambios</button>
+                </div>
+                <div id="availability-grid" class="availability-grid"></div>
+                <p class="panel-hint">Tip: presioná una franja para activarla o desactivarla. No te olvides de guardar.</p>
+            </section>
+
+            <!-- PANEL: BLOQUEOS -->
+            <section class="admin-panel" id="panel-blocks">
+                <div class="panel-head">
+                    <div>
+                        <h2>Bloqueos puntuales</h2>
+                        <p>Bloqueá un día completo o un horario específico (vacaciones, feriados, etc.).</p>
+                    </div>
+                </div>
+
+                <form class="block-form" id="block-form">
+                    <div class="block-field">
+                        <label for="block-date">Fecha *</label>
+                        <input type="date" id="block-date" class="admin-input" required>
+                    </div>
+                    <div class="block-field">
+                        <label for="block-time">Horario (opcional)</label>
+                        <select id="block-time" class="admin-input">
+                            <option value="">Día completo</option>
+                        </select>
+                    </div>
+                    <div class="block-field">
+                        <label for="block-modality">Modalidad</label>
+                        <select id="block-modality" class="admin-input">
+                            <option value="">Ambas</option>
+                            <option value="online">Online</option>
+                            <option value="presencial">Presencial</option>
+                        </select>
+                    </div>
+                    <div class="block-field block-field-wide">
+                        <label for="block-reason">Motivo (opcional)</label>
+                        <input type="text" id="block-reason" class="admin-input" placeholder="Ej: Feriado, vacaciones...">
+                    </div>
+                    <button type="submit" class="btn-admin btn-admin-primary">Agregar bloqueo</button>
+                </form>
+
+                <div id="blocks-list" class="blocks-list"></div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="admin-toast" class="admin-toast"></div>
+
+    <script type="module" src="neon-config.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

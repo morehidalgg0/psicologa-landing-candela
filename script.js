@@ -63,26 +63,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. INTERACTIVE APPOINTMENT BOOKING SYSTEM (DISPONIBILIDAD PERSONALIZADA)
     // =========================================================================
     
-    // Configuración de disponibilidad exacta por día de la semana y modalidad:
+    // Configuración de disponibilidad por día de la semana y modalidad.
     // 0 = Domingo, 1 = Lunes, 2 = Martes, 3 = Miércoles, 4 = Jueves, 5 = Viernes, 6 = Sábado
-    const SCHEDULE_CONFIG = {
-        1: { // Lunes
-            presencial: ['08:00', '09:00', '16:00', '17:00', '18:00'],
-            online: ['08:00', '09:00', '16:00', '17:00', '18:00']
-        },
-        2: { // Martes
-            presencial: ['18:00'],
-            online: ['18:00']
-        },
-        3: { // Miércoles
-            presencial: ['08:00', '09:00', '14:00', '15:00'],
-            online: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00']
-        },
-        4: { // Jueves
-            presencial: ['08:00', '09:00', '14:00', '15:00'],
-            online: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00']
-        }
-    };
+    // Se inicializa con la agenda por defecto y luego se reemplaza por los datos
+    // reales cargados desde el panel (Neon).
+    let SCHEDULE_CONFIG = (typeof DEFAULT_SCHEDULE !== 'undefined')
+        ? JSON.parse(JSON.stringify(DEFAULT_SCHEDULE))
+        : {};
+
+    // Horarios bloqueados y ocupados (se cargan desde Neon)
+    let BLOCKED_SLOTS = [];
+    let BOOKED_SLOTS = [];
 
     // Estado del turno
     const bookingState = {
@@ -176,6 +167,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 
+    // Indica si un horario puntual está bloqueado o ya ocupado
+    function isSlotUnavailable(isoDate, modality, time) {
+        if (!isoDate) return false;
+
+        const blocked = BLOCKED_SLOTS.some(b =>
+            b.blocked_date === isoDate &&
+            (!b.time || b.time === time) &&
+            (!b.modality || b.modality === modality)
+        );
+        if (blocked) return true;
+
+        return BOOKED_SLOTS.some(x =>
+            x.appointment_date === isoDate &&
+            x.appointment_time === time &&
+            x.modality === modality
+        );
+    }
+
     // Renderizar horarios disponibles según el día y la modalidad
     function renderTimeSlots() {
         if (!timeSlotsContainer) return;
@@ -188,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const dayOfWeek = bookingState.dateObj.getDay();
         const isOnline = bookingState.modality.includes('Online');
+        const modality = isOnline ? 'online' : 'presencial';
         const daySchedule = SCHEDULE_CONFIG[dayOfWeek];
 
         if (!daySchedule) {
@@ -202,13 +212,30 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const availableSlots = isOnline ? daySchedule.online : daySchedule.presencial;
+        const rawSlots = isOnline ? daySchedule.online : daySchedule.presencial;
 
-        if (!availableSlots || availableSlots.length === 0) {
+        // Quitar horarios bloqueados o ya ocupados
+        const availableSlots = (rawSlots || []).filter(
+            slot => !isSlotUnavailable(bookingState.date, modality, slot)
+        );
+
+        if (!rawSlots || rawSlots.length === 0) {
             timeSlotsContainer.innerHTML = `
                 <div style="background: var(--celeste-bg); border-radius: var(--radius-md); padding: 1.2rem; border: 1px solid var(--cream-border); text-align: center;">
-                    <p style="color: var(--navy-primary); font-weight: 600; font-size: 0.95rem;">No hay horarios en modalidad presencial para este día.</p>
-                    <p style="color: var(--text-muted); font-size: 0.85rem;">Podés seleccionar la modalidad <strong>Online</strong> o elegir otro día.</p>
+                    <p style="color: var(--navy-primary); font-weight: 600; font-size: 0.95rem;">No hay horarios en modalidad ${isOnline ? 'online' : 'presencial'} para este día.</p>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Podés probar con la otra modalidad o elegir otro día.</p>
+                </div>
+            `;
+            bookingState.time = '';
+            updateSummary();
+            return;
+        }
+
+        if (availableSlots.length === 0) {
+            timeSlotsContainer.innerHTML = `
+                <div style="background: var(--celeste-bg); border-radius: var(--radius-md); padding: 1.2rem; border: 1px solid var(--cream-border); text-align: center;">
+                    <p style="color: var(--navy-primary); font-weight: 600; font-size: 0.95rem;">Todos los horarios de este día ya están ocupados</p>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Por favor seleccioná otro día.</p>
                 </div>
             `;
             bookingState.time = '';
@@ -346,7 +373,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (customDateInput) {
             const tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate() + 1);
-            customDateInput.min = tomorrow.toISOString().split('T')[0];
+            customDateInput.min = (typeof toISODate === 'function')
+                ? toISODate(tomorrow)
+                : tomorrow.toISOString().split('T')[0];
         }
     }
 
@@ -355,7 +384,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const dayNum = dateObj.getDate();
         const fullMonth = fullMonthNames[dateObj.getMonth()];
 
-        bookingState.date = dateObj.toISOString().split('T')[0];
+        bookingState.date = (typeof toISODate === 'function')
+            ? toISODate(dateObj)
+            : dateObj.toISOString().split('T')[0];
         bookingState.dateObj = dateObj;
         bookingState.dateFormatted = `${fullDay} ${dayNum} de ${fullMonth}`;
         
@@ -441,9 +472,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Enviar Reserva -> Construir y abrir WhatsApp
+    // Enviar Reserva -> Guardar en la base y abrir WhatsApp
     if (btnSubmitBooking) {
-        btnSubmitBooking.addEventListener('click', (e) => {
+        btnSubmitBooking.addEventListener('click', async (e) => {
             e.preventDefault();
 
             // Validaciones
@@ -473,11 +504,11 @@ document.addEventListener('DOMContentLoaded', () => {
             message += `🛋️ *Modalidad:* ${bookingState.modality}\n`;
             message += `🌿 *Tipo de consulta:* ${bookingState.type}\n`;
             message += `👤 *Paciente:* ${bookingState.name.trim()}\n`;
-            
+
             if (bookingState.phone.trim()) {
                 message += `📱 *Teléfono:* ${bookingState.phone.trim()}\n`;
             }
-            
+
             if (bookingState.notes.trim()) {
                 message += `📝 *Motivo / Mensaje:* ${bookingState.notes.trim()}\n`;
             }
@@ -486,14 +517,74 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
+            // Guardar el turno en la base de datos (si Neon está configurado)
+            if (typeof isNeonConfigured === 'function' && isNeonConfigured()) {
+                btnSubmitBooking.disabled = true;
+                const originalLabel = btnSubmitBooking.innerHTML;
+                btnSubmitBooking.innerHTML = '<span>⏳</span><span>Guardando turno...</span>';
+
+                const { error } = await createAppointment({
+                    patient_name: bookingState.name.trim(),
+                    patient_phone: bookingState.phone.trim() || null,
+                    consultation_type: bookingState.type || null,
+                    notes: bookingState.notes.trim() || null,
+                    modality: modalityKey(bookingState.modality),
+                    appointment_date: bookingState.date,
+                    appointment_time: bookingState.time,
+                    status: 'pendiente'
+                });
+
+                btnSubmitBooking.disabled = false;
+                btnSubmitBooking.innerHTML = originalLabel;
+
+                if (error) {
+                    console.error('No se pudo guardar el turno:', error);
+                    showToast('⚠️ No pudimos registrar el turno en el sistema, pero podés enviarlo por WhatsApp.');
+                } else {
+                    // Marcar el horario como ocupado localmente
+                    BOOKED_SLOTS.push({
+                        appointment_date: bookingState.date,
+                        appointment_time: bookingState.time,
+                        modality: modalityKey(bookingState.modality)
+                    });
+                }
+            }
+
             showToast('✅ ¡Abriendo WhatsApp con tu turno solicitado!');
-            
+
             setTimeout(() => {
                 window.open(whatsappUrl, '_blank');
             }, 600);
         });
     }
 
-    // Inicializar turnero dinámico
-    generateDays();
+    // Inicializar turnero dinámico (con datos reales si hay conexión)
+    async function initBooking() {
+        if (typeof isNeonConfigured === 'function' && isNeonConfigured()) {
+            try {
+                const [availability, blocked, booked] = await Promise.all([
+                    loadAvailabilityConfig(),
+                    loadBlockedSlots(toISODate(new Date()), toISODate(addDays(new Date(), 90))),
+                    loadBookedSlots(toISODate(new Date()), toISODate(addDays(new Date(), 90)))
+                ]);
+
+                if (availability && Object.keys(availability).length > 0) {
+                    SCHEDULE_CONFIG = availability;
+                }
+                BLOCKED_SLOTS = blocked || [];
+                BOOKED_SLOTS = booked || [];
+            } catch (err) {
+                console.error('Error al inicializar el turnero:', err);
+            }
+        }
+        generateDays();
+    }
+
+    function addDays(dateObj, days) {
+        const d = new Date(dateObj);
+        d.setDate(d.getDate() + days);
+        return d;
+    }
+
+    initBooking();
 });
