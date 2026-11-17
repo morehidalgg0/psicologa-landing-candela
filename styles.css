@@ -1347,3 +1347,46 @@ a {
         right: 20px;
     }
 }
+
+/* ===== BANNER EBOOK "MAÑANA EMPIEZO" ===== */
+.ebook-banner {
+    background-color: var(--cream-surface);
+    padding: 4rem 0;
+}
+
+.ebook-banner-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 2.5rem;
+    align-items: center;
+    max-width: 980px;
+    /* mismo fondo que la sección: .fade-in-up crea un contexto aislado y el
+       multiply de la imagen necesita un fondo dentro de ese contexto */
+    background-color: var(--cream-surface);
+}
+
+.ebook-banner-img {
+    width: 100%;
+    height: auto;
+    mix-blend-mode: multiply; /* funde el fondo blanco del mockup */
+}
+
+.ebook-banner-copy h2 {
+    font-size: 2.3rem;
+    margin-bottom: 0.8rem;
+}
+
+.ebook-banner-copy p {
+    margin-bottom: 1.6rem;
+}
+
+@media (max-width: 768px) {
+    .ebook-banner { padding: 3rem 0; }
+    .ebook-banner-inner {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        text-align: center;
+    }
+    .ebook-banner-img { max-width: 360px; margin: 0 auto; }
+    .ebook-banner-copy h2 { font-size: 1.9rem; }
+}
