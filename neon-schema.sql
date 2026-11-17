@@ -202,3 +202,82 @@ on conflict (day_of_week, modality, time) do nothing;
 
 -- Después de crear tablas/vista, recordá hacer click en
 -- "Refresh schema cache" en la página de la Data API.
+
+-- =============================================================================
+--  9. LEADS DEL EBOOK "MAÑANA EMPIEZO" (test mananaempiezo/test.html)
+--  -----------------------------------------------------------------------------
+--  Se puede correr solo este bloque en el SQL Editor de Neon (es idempotente).
+--  Después: Data API -> "Refresh schema cache".
+--  - El público (anonymous) solo puede INSERTAR (nunca leer).
+--  - Solo Candela (authenticated + su user_id) puede leer/gestionar.
+--  - La web inserta a través de la función create_ebook_lead (SECURITY DEFINER),
+--    igual que create_appointment.
+-- =============================================================================
+create table if not exists public.ebook_leads (
+    id                uuid primary key default gen_random_uuid(),
+    created_at        timestamptz not null default now(),
+    nombre            text check (char_length(nombre) <= 80),
+    email             text check (char_length(email) <= 160),
+    whatsapp          text check (char_length(whatsapp) <= 40),
+    perfil_resultado  text check (perfil_resultado in ('perfeccionismo', 'ganas', 'agobio', 'incomodidad')),
+    utm_source        text check (char_length(utm_source)   <= 200),
+    utm_medium        text check (char_length(utm_medium)   <= 200),
+    utm_campaign      text check (char_length(utm_campaign) <= 200),
+    utm_content       text check (char_length(utm_content)  <= 200),
+    utm_term          text check (char_length(utm_term)     <= 200),
+    fbclid            text check (char_length(fbclid)       <= 500),
+    consentimiento    boolean not null default false,
+    constraint ebook_leads_consent_chk check (consentimiento = true),
+    constraint ebook_leads_contact_chk check (email is not null or whatsapp is not null)
+);
+
+create index if not exists ebook_leads_created_idx on public.ebook_leads (created_at desc);
+
+alter table public.ebook_leads enable row level security;
+
+-- Público: solo INSERT (con consentimiento). Sin SELECT anónimo.
+drop policy if exists "ebook_leads_insert" on public.ebook_leads;
+create policy "ebook_leads_insert" on public.ebook_leads
+    for insert to anonymous
+    with check (consentimiento = true);
+
+-- Lectura y gestión: solo Candela.
+drop policy if exists "ebook_leads_manage" on public.ebook_leads;
+create policy "ebook_leads_manage" on public.ebook_leads
+    for all to authenticated
+    using (auth.user_id() = 'b59fc20c-dac9-4fac-b415-6641862f4aa0')
+    with check (auth.user_id() = 'b59fc20c-dac9-4fac-b415-6641862f4aa0');
+
+grant insert on public.ebook_leads to anonymous;
+grant select, insert, update, delete on public.ebook_leads to authenticated;
+
+create or replace function public.create_ebook_lead(
+    p_nombre            text default null,
+    p_email             text default null,
+    p_whatsapp          text default null,
+    p_perfil_resultado  text default null,
+    p_utm_source        text default null,
+    p_utm_medium        text default null,
+    p_utm_campaign      text default null,
+    p_utm_content       text default null,
+    p_utm_term          text default null,
+    p_fbclid            text default null,
+    p_consentimiento    boolean default false
+) returns void
+language sql
+security definer
+set search_path = public
+as $$
+    insert into public.ebook_leads
+        (nombre, email, whatsapp, perfil_resultado,
+         utm_source, utm_medium, utm_campaign, utm_content, utm_term, fbclid,
+         consentimiento)
+    values
+        (nullif(trim(p_nombre), ''), nullif(lower(trim(p_email)), ''), nullif(trim(p_whatsapp), ''),
+         p_perfil_resultado,
+         p_utm_source, p_utm_medium, p_utm_campaign, p_utm_content, p_utm_term, p_fbclid,
+         p_consentimiento);
+$$;
+
+revoke all on function public.create_ebook_lead(text, text, text, text, text, text, text, text, text, text, boolean) from public;
+grant execute on function public.create_ebook_lead(text, text, text, text, text, text, text, text, text, text, boolean) to anonymous, authenticated;
