@@ -191,6 +191,29 @@ async function createAppointment(payload) {
     });
 }
 
+/**
+ * Guarda un lead del test del ebook "Mañana empiezo" (mananaempiezo/test.html)
+ * vía función segura del lado del servidor, igual que los turnos.
+ */
+async function createEbookLead(payload) {
+    const client = getNeonClient();
+    if (!client) return { data: null, error: new Error('Neon no configurado') };
+
+    return client.rpc('create_ebook_lead', {
+        p_nombre: payload.nombre,
+        p_email: payload.email,
+        p_whatsapp: payload.whatsapp,
+        p_perfil_resultado: payload.perfil_resultado,
+        p_utm_source: payload.utm_source,
+        p_utm_medium: payload.utm_medium,
+        p_utm_campaign: payload.utm_campaign,
+        p_utm_content: payload.utm_content,
+        p_utm_term: payload.utm_term,
+        p_fbclid: payload.fbclid,
+        p_consentimiento: payload.consentimiento === true
+    });
+}
+
 /** Devuelve 'YYYY-MM-DD' de un objeto Date respetando la zona local. */
 function toISODate(dateObj) {
     const y = dateObj.getFullYear();
@@ -209,4 +232,5 @@ window.loadAvailabilityConfig = loadAvailabilityConfig;
 window.loadBlockedSlots = loadBlockedSlots;
 window.loadBookedSlots = loadBookedSlots;
 window.createAppointment = createAppointment;
+window.createEbookLead = createEbookLead;
 window.toISODate = toISODate;

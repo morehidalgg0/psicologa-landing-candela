@@ -1,0 +1,84 @@
+/* Estilos propios del test "¿Qué te frena a empezar?" (se suma a landing.css) */
+.quiz-wrap { padding-top: 32px; }
+.quiz-screen h1 { margin-bottom: 1rem; }
+.quiz-screen h1:focus, .quiz-screen h2:focus { outline: none; }
+.quiz-screen .lead { margin-bottom: 1.2rem; }
+
+.intro-points { display: grid; gap: 0.5rem; margin-bottom: 1.6rem; font-size: 0.95rem; color: var(--muted); }
+.intro-points li { padding-left: 1.4rem; position: relative; }
+.intro-points li::before { content: "•"; position: absolute; left: 0.3rem; color: var(--orange); font-weight: 800; }
+
+.progress { margin-bottom: 1.4rem; }
+.progress-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.88rem; color: var(--muted); font-weight: 600; margin-bottom: 0.5rem;
+}
+.back-btn {
+    background: none; border: 0; color: var(--orange-text); font: inherit; font-weight: 600;
+    cursor: pointer; min-height: 44px; padding: 0 0.25rem;
+}
+.back-btn[disabled] { visibility: hidden; }
+.progress-track { height: 8px; border-radius: 99px; background: var(--cream-2); overflow: hidden; }
+.progress-fill { height: 100%; width: 0; background: var(--orange); border-radius: 99px; transition: width .35s ease; }
+
+.q-title { font-size: clamp(1.35rem, 4.6vw, 1.75rem); margin-bottom: 1.2rem; }
+.options { display: grid; gap: 0.7rem; }
+.option {
+    width: 100%;
+    min-height: 56px;
+    text-align: left;
+    padding: 0.9rem 1.1rem;
+    border-radius: var(--r-md);
+    border: 2px solid var(--pink);
+    background: var(--cream);
+    color: var(--ink);
+    font: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-color .15s ease, background-color .15s ease;
+}
+.option:hover { border-color: var(--salmon); background: var(--white); }
+.option[aria-pressed="true"] { border-color: var(--orange-cta); background: var(--cream-2); }
+
+.field { display: grid; gap: 0.3rem; margin-bottom: 0.9rem; }
+.field label { font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+.field .opt { font-weight: 400; color: var(--muted); font-size: 0.85rem; }
+.field input {
+    min-height: 50px;
+    padding: 0.7rem 0.9rem;
+    border-radius: var(--r-sm);
+    border: 2px solid var(--pink);
+    background: var(--cream);
+    font: inherit;
+    color: var(--ink);
+}
+.field input:focus { border-color: var(--orange-cta); outline: none; box-shadow: 0 0 0 3px rgba(191, 78, 15, 0.18); }
+#lead-form { margin-top: 1.2rem; }
+.check { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.9rem; margin: 0.4rem 0 1rem; cursor: pointer; }
+.check input { flex: none; width: 22px; height: 22px; margin-top: 2px; accent-color: var(--orange-cta); }
+.form-error { color: var(--brick); font-weight: 600; font-size: 0.92rem; margin-bottom: 0.8rem; }
+.skip-btn {
+    display: block; margin: 1rem auto 0; background: none; border: 0; font: inherit;
+    color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 44px; padding: 0 0.5rem;
+}
+.skip-btn:hover { color: var(--ink); }
+
+#screen-result { display: grid; gap: 1rem; }
+#screen-result[hidden] { display: none; }
+#result-body p + p { margin-top: 0.7rem; }
+#result-title { margin-bottom: 0.8rem; }
+.exercise { background: var(--pink); box-shadow: none; }
+.exercise h3 { font-size: 1.3rem; }
+.exercise .steps li::before { background: var(--white); }
+.result-cta-grid { display: grid; grid-template-columns: 96px 1fr; gap: 1rem; align-items: start; }
+.result-cta-grid img { border-radius: 6px; box-shadow: var(--shadow-md); }
+.result-cta h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+.result-actions { display: grid; gap: 0.6rem; margin-top: 1rem; }
+.disclaimer-small { font-size: 0.85rem; color: var(--muted); text-align: center; }
+
+@media (min-width: 600px) {
+    .result-cta-grid { grid-template-columns: 140px 1fr; gap: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .progress-fill, .option { transition: none; }
+}

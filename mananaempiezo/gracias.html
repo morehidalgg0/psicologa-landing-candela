@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>¡Gracias por tu compra! · Mañana empiezo</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#FDF4E9">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="landing.css">
+    <link rel="icon" href="img/portada-480.webp" type="image/webp">
+    <style>
+        .thanks { padding-top: 40px; }
+        .thanks-head { display: grid; gap: 1.2rem; align-items: center; margin-bottom: 1.5rem; }
+        .thanks-head img { width: 120px; border-radius: 6px; box-shadow: var(--shadow-md); }
+        .thanks h1 { font-size: clamp(1.9rem, 6.4vw, 2.8rem); margin-bottom: 0.5rem; }
+        .stack { display: grid; gap: 1rem; }
+        .next-step h2 { font-size: 1.4rem; }
+        .next-step .btn { margin-top: 1rem; }
+        .ig { margin-top: 0.5rem; }
+        @media (min-width: 600px) { .thanks-head { grid-template-columns: 120px 1fr; } }
+    </style>
+</head>
+<!--
+    Página post-compra. Configurar en Hotmart como "Página de agradecimiento":
+    https://candelahidalgo.com.ar/mananaempiezo/gracias.html
+    El evento Purchase NO se dispara acá: lo envía Hotmart con el Pixel
+    configurado en el producto (si lo mandáramos también, se duplicaría).
+-->
+<body data-page="gracias" class="page-simple">
+
+    <header class="topbar">
+        <div class="container">
+            <span class="brand">Mañana&nbsp;<em>empiezo</em></span>
+            <a href="../" class="byline">por Lic. Candela Hidalgo</a>
+        </div>
+    </header>
+
+    <main class="section thanks" id="contenido">
+        <div class="container narrow stack">
+            <section class="card" aria-labelledby="thanks-title">
+                <div class="thanks-head">
+                    <img src="img/portada-480.webp" width="480" height="720" alt="Portada del ebook Mañana empiezo">
+                    <div>
+                        <p class="eyebrow">Compra confirmada</p>
+                        <h1 id="thanks-title">¡Gracias! Ya diste el <span class="u">primer paso</span></h1>
+                        <p>Elegir empezar ya es parte del proceso. Me alegra mucho acompañarte en este recorrido.</p>
+                    </div>
+                </div>
+
+                <h2 style="font-size: 1.35rem;">Cómo acceder a tu ebook</h2>
+                <ol class="steps">
+                    <li><span>Revisá tu email: <strong>Hotmart te envía el acceso</strong> a la dirección que usaste en la compra (puede tardar unos minutos).</span></li>
+                    <li><span>Si no lo encontrás, buscá en <strong>spam o promociones</strong>, o buscá “Hotmart” en tu bandeja de entrada.</span></li>
+                    <li><span>Descargá el PDF y guardalo en tu celular o computadora para tenerlo siempre a mano.</span></li>
+                    <li><span><strong>Empezá por el Día 1 del plan.</strong> Aunque tengas ganas de leer todo de corrido, la idea es practicar un paso por día.</span></li>
+                </ol>
+                <p style="font-size: 0.95rem;">¿Pasó un rato y no te llegó nada? <a href="#" class="link" data-wa data-wa-text="Hola Candela, compré el ebook Mañana empiezo y no me llegó el acceso.">Escribime por WhatsApp</a> y lo resolvemos.</p>
+            </section>
+
+            <section class="card next-step" aria-labelledby="next-title">
+                <p class="eyebrow">Si querés ir un paso más allá</p>
+                <h2 id="next-title">Un espacio para trabajarlo en profundidad</h2>
+                <p>El libro es una muy buena herramienta para empezar. Si sentís que lo que te pasa necesita un acompañamiento más personal, podés agendar una primera consulta conmigo, de forma online o presencial en Pinamar.</p>
+                <a href="../#agendar" class="btn btn-buy">Agendar una primera consulta</a>
+                <p class="ig" data-instagram hidden>También podés seguirme en Instagram: <a href="#" class="link" target="_blank" rel="noopener"><span data-instagram-user></span></a></p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer" style="padding-bottom: 2rem;">
+        <div class="container">
+            <p>© <span data-year>2026</span> Lic. Candela Hidalgo · M.P. 49169 · <a href="../">candelahidalgo.com.ar</a></p>
+            <p class="disclaimer">Este material es psicoeducativo y no reemplaza la atención psicológica profesional.</p>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="landing.js"></script>
+</body>
+</html>

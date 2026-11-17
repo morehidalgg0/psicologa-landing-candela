@@ -65,6 +65,7 @@
             <button type="button" class="admin-tab active" data-tab="appointments">📅 Turnos</button>
             <button type="button" class="admin-tab" data-tab="availability">🕐 Disponibilidad</button>
             <button type="button" class="admin-tab" data-tab="blocks">🚫 Bloqueos</button>
+            <button type="button" class="admin-tab" data-tab="leads">📘 Leads ebook</button>
         </nav>
 
         <main class="admin-main">
@@ -149,6 +150,21 @@
                 </form>
 
                 <div id="blocks-list" class="blocks-list"></div>
+            </section>
+
+            <!-- PANEL: LEADS DEL EBOOK -->
+            <section class="admin-panel" id="panel-leads">
+                <div class="panel-head">
+                    <div>
+                        <h2>Leads del ebook "Mañana empiezo"</h2>
+                        <p>Personas que hicieron el test "¿Qué te frena a empezar?" y dejaron sus datos con consentimiento.</p>
+                    </div>
+                    <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                        <button type="button" class="btn-admin btn-admin-ghost" id="refresh-leads">↻ Actualizar</button>
+                        <button type="button" class="btn-admin btn-admin-primary" id="export-leads">⬇ Exportar CSV</button>
+                    </div>
+                </div>
+                <div id="leads-list" class="blocks-list"></div>
             </section>
 
         </main>

@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadAppointments();
         loadAvailability();
         loadBlocks();
+        loadLeads();
     }
 
     client.auth.getSession()
@@ -446,6 +447,79 @@ document.addEventListener('DOMContentLoaded', () => {
         e.target.reset();
         showToast('✅ Bloqueo agregado');
         loadBlocks();
+    });
+
+    // =========================================================================
+    // 4. LEADS DEL EBOOK "MAÑANA EMPIEZO"
+    // =========================================================================
+    const leadProfiles = {
+        perfeccionismo: 'Perfeccionismo',
+        ganas: 'Esperar tener ganas',
+        agobio: 'Agobio',
+        incomodidad: 'Evitar lo incómodo'
+    };
+    let leads = [];
+
+    async function loadLeads() {
+        const list = $('leads-list');
+        list.innerHTML = '<div class="empty-state">Cargando leads...</div>';
+
+        const { data, error } = await client
+            .from('ebook_leads')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            console.error(error);
+            list.innerHTML = '<div class="empty-state">No se pudieron cargar los leads. ¿Corriste el bloque 9 de neon-schema.sql?</div>';
+            return;
+        }
+
+        leads = data || [];
+        if (leads.length === 0) {
+            list.innerHTML = '<div class="empty-state">Todavía no hay leads del test. 📘</div>';
+            return;
+        }
+
+        list.innerHTML = leads.map(l => {
+            const fecha = new Date(l.created_at).toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' });
+            const contacto = [
+                l.email ? `✉️ ${escapeHtml(l.email)}` : '',
+                l.whatsapp ? `📱 ${escapeHtml(l.whatsapp)}` : ''
+            ].filter(Boolean).join(' · ');
+            const origen = [l.utm_source, l.utm_campaign, l.utm_content].filter(Boolean).map(escapeHtml).join(' / ');
+            const wa = l.whatsapp
+                ? `<a class="btn-mini wa" target="_blank" rel="noopener" href="https://wa.me/${l.whatsapp.replace(/[^0-9]/g, '')}">💬 WhatsApp</a>`
+                : '';
+            return `
+                <div class="block-card">
+                    <div>
+                        <strong>${escapeHtml(l.nombre || 'Sin nombre')}</strong> · ${escapeHtml(leadProfiles[l.perfil_resultado] || l.perfil_resultado || '')}
+                        <div class="block-sub">${contacto}</div>
+                        <div class="block-sub">🕒 ${escapeHtml(fecha)}${origen ? ` · Origen: ${origen}` : ''}</div>
+                    </div>
+                    ${wa}
+                </div>
+            `;
+        }).join('');
+    }
+
+    $('refresh-leads').addEventListener('click', loadLeads);
+
+    $('export-leads').addEventListener('click', () => {
+        if (!leads.length) return showToast('No hay leads para exportar', true);
+        const cols = ['created_at', 'nombre', 'email', 'whatsapp', 'perfil_resultado',
+            'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+        const csvCell = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+        const csv = [cols.join(',')]
+            .concat(leads.map(l => cols.map(c => csvCell(l[c])).join(',')))
+            .join('\n');
+        const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `leads-mananaempiezo-${todayISO()}.csv`;
+        a.click();
+        URL.revokeObjectURL(a.href);
     });
 
     // Poblar selects de horarios y fecha mínima

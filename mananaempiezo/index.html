@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+  COPY SUGERIDO PARA META ADS (coherente con esta landing y con las políticas de
+  Meta: no afirma ni insinúa atributos personales del usuario — nada de
+  "¿Sos procrastinador?" o "Sabemos que postergás").
+
+  TITULARES (máx. ~40 caracteres)
+  1. Una guía para empezar lo que venís postergando
+  2. Dejá de esperar el momento perfecto
+  3. Mañana empiezo: guía basada en ACT
+  4. Empezar no requiere tener ganas
+  5. El primer paso, en un plan de 7 días
+
+  TEXTOS PRINCIPALES
+  1. Postergar no siempre es falta de voluntad. Muchas veces es una forma de
+     evitar algo incómodo. "Mañana empiezo" es una guía simple, basada en la
+     Terapia de Aceptación y Compromiso, para dar el primer paso. Escrita por la
+     Lic. Candela Hidalgo, psicóloga clínica. Descarga inmediata.
+  2. Para quienes tienen una lista de pendientes que no deja de crecer: 11
+     capítulos, ejercicios prácticos y un plan de 7 días para pasar de la
+     intención a la acción. Sin fórmulas mágicas, con herramientas reales.
+  3. ¿Y si no hiciera falta esperar a tener ganas? Esta guía propone algo
+     distinto a los tips de productividad: hacer lugar a la incomodidad y
+     moverte hacia lo que te importa. Ebook en PDF, garantía de 7 días.
+  4. Hacé el test gratuito "¿Qué te frena a empezar?" y descubrí qué está
+     detrás de la postergación, con un ejercicio para hacer hoy mismo.
+     (→ usar con la URL de test.html)
+  5. Una guía psicoeducativa para empezar lo que venís postergando, escrita por
+     una psicóloga clínica (M.P. 49169). Ejercicios simples, plan de 7 días y
+     acceso inmediato desde cualquier país.
+================================================================================
+-->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mañana empiezo · Una guía simple para empezar lo que venís postergando</title>
+    <meta name="description" content="Ebook de la Lic. Candela Hidalgo, psicóloga clínica. Una guía basada en ACT con 11 capítulos, ejercicios prácticos y un plan de 7 días para dar el primer paso. Descarga inmediata.">
+    <link rel="canonical" href="https://candelahidalgo.com.ar/mananaempiezo/">
+    <meta name="theme-color" content="#FDF4E9">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="product">
+    <meta property="og:locale" content="es_LA">
+    <meta property="og:site_name" content="Lic. Candela Hidalgo">
+    <meta property="og:title" content="Mañana empiezo · Una guía para empezar lo que venís postergando">
+    <meta property="og:description" content="Guía basada en ACT: 11 capítulos, ejercicios prácticos y un plan de 7 días. Por la Lic. Candela Hidalgo.">
+    <meta property="og:url" content="https://candelahidalgo.com.ar/mananaempiezo/">
+    <meta property="og:image" content="https://candelahidalgo.com.ar/mananaempiezo/img/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Mockup del ebook Mañana empiezo de la Lic. Candela Hidalgo">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mañana empiezo · Una guía para empezar lo que venís postergando">
+    <meta name="twitter:description" content="Guía basada en ACT: 11 capítulos, ejercicios prácticos y un plan de 7 días.">
+    <meta name="twitter:image" content="https://candelahidalgo.com.ar/mananaempiezo/img/og-image.jpg">
+
+    <!-- Imagen del hero: precarga para un LCP rápido en 4G -->
+    <link rel="preload" as="image" type="image/webp"
+          href="img/mockup-640.webp"
+          imagesrcset="img/mockup-640.webp 640w, img/mockup-960.webp 960w, img/mockup-1280.webp 1280w"
+          imagesizes="(min-width: 900px) 540px, 100vw" fetchpriority="high">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="landing.css">
+    <link rel="icon" href="img/portada-480.webp" type="image/webp">
+    <script>document.documentElement.classList.add('js');</script>
+</head>
+<body data-page="landing">
+
+    <!-- Íconos (sprite SVG) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
+        <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M18 6 6 18M6 6l12 12"/></symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+        <symbol id="i-chev" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></symbol>
+        <symbol id="i-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0-4-4m4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></g></symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6L12 3Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/></symbol>
+        <symbol id="i-leaf" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 19c0-9 5-14 15-14 0 10-5 15-14 15M5 19l7-7"/></symbol>
+        <symbol id="i-list" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></symbol>
+        <symbol id="i-calendar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M5 4 2.5 6.5M19 4l2.5 2.5"/></g></symbol>
+        <symbol id="i-brain" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M9 4.5a3 3 0 0 0-5 2.2A3 3 0 0 0 3 12a3 3 0 0 0 2 4.7A3 3 0 0 0 9 19.5V4.5Zm6 0a3 3 0 0 1 5 2.2A3 3 0 0 1 21 12a3 3 0 0 1-2 4.7 3 3 0 0 1-4 2.8V4.5ZM9 9H7m8 0h2M9 14H7.5M15 14h1.5"/></symbol>
+        <symbol id="i-lotus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 19c-3-2-4-5-4-8 0-2.5 1.5-5 4-7 2.5 2 4 4.5 4 7 0 3-1 6-4 8Zm0 0c-4 0-8-2-9-6 2-.5 4 0 5 1m4 5c4 0 8-2 9-6-2-.5-4 0-5 1M3 20h18"/></symbol>
+        <symbol id="i-card" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h3"/></g></symbol>
+        <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 12a8 8 0 1 1 3.6 6.7L4 20l1.3-3.5A8 8 0 0 1 4 12Z"/></symbol>
+        <symbol id="i-stack" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"/></symbol>
+        <symbol id="i-eye" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></g></symbol>
+    </svg>
+
+    <a href="#contenido" class="skip-link">Saltar al contenido</a>
+
+    <!-- 1. Barra superior mínima -->
+    <header class="topbar">
+        <div class="container">
+            <a href="#hero" class="brand" aria-label="Mañana empiezo, volver al inicio">Mañana&nbsp;<em>empiezo</em></a>
+            <a href="../" class="byline">por Lic. Candela Hidalgo</a>
+        </div>
+    </header>
+
+    <main id="contenido">
+
+        <!-- 2. Hero -->
+        <section class="hero" id="hero" aria-labelledby="hero-title">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <span class="badge"><svg aria-hidden="true"><use href="#i-leaf"/></svg>Basado en ACT · Lic. Candela Hidalgo</span>
+                    <h1 id="hero-title">Dejá de esperar el momento perfecto para <span class="u">empezar</span></h1>
+                    <p class="lead"><strong>Mañana empiezo</strong> es una guía simple para empezar lo que venís postergando: sin culpa, sin fórmulas mágicas y con pasos que podés dar hoy.</p>
+
+                    <div class="hero-buy">
+                        <div class="price-line">
+                            <span class="price" data-price>USD 9,99</span>
+                            <span class="price-old" data-price-old hidden></span>
+                            <span class="price-note">Ebook en PDF · pago único</span>
+                        </div>
+                        <a href="#oferta" class="btn btn-buy btn-lg" data-buy="hero">Quiero empezar hoy <svg class="arrow" width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                    </div>
+                    <div class="trust">
+                        <span><svg aria-hidden="true"><use href="#i-download"/></svg>Descarga inmediata</span>
+                        <span><svg aria-hidden="true"><use href="#i-lock"/></svg>Pago seguro con Hotmart</span>
+                        <span><svg aria-hidden="true"><use href="#i-shield"/></svg>Garantía de <span data-garantia>7</span> días</span>
+                    </div>
+                </div>
+
+                <div class="hero-media">
+                    <img src="img/mockup-640.webp"
+                         srcset="img/mockup-640.webp 640w, img/mockup-960.webp 960w, img/mockup-1280.webp 1280w"
+                         sizes="(min-width: 900px) 540px, 100vw"
+                         width="1280" height="853" fetchpriority="high" decoding="async"
+                         alt="Ebook Mañana empiezo de la Lic. Candela Hidalgo: portada con un reloj despertador y el subtítulo Una guía simple para empezar lo que venís postergando">
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Identificación -->
+        <section class="section section-warm" aria-labelledby="pain-title">
+            <div class="container narrow">
+                <p class="eyebrow">¿Te pasa esto?</p>
+                <h2 id="pain-title">Para quienes saben qué quieren hacer, pero no logran <span class="u">arrancar</span></h2>
+                <ul class="pain-list">
+                    <li class="pain-item reveal"><span class="pain-icon"><svg aria-hidden="true"><use href="#i-list"/></svg></span><p>La lista de pendientes crece más rápido de lo que se achica, y cada ítem pesa un poco más.</p></li>
+                    <li class="pain-item reveal"><span class="pain-icon"><svg aria-hidden="true"><use href="#i-calendar"/></svg></span><p>“El lunes arranco”. Y llega el lunes, y aparece otro motivo para correrlo una semana más.</p></li>
+                    <li class="pain-item reveal"><span class="pain-icon"><svg aria-hidden="true"><use href="#i-moon"/></svg></span><p>A la noche aparece la culpa: el día pasó y eso que importaba quedó otra vez sin tocar.</p></li>
+                    <li class="pain-item reveal"><span class="pain-icon"><svg aria-hidden="true"><use href="#i-clock"/></svg></span><p>Esperás tener ganas, energía o el momento ideal… y ese momento casi nunca llega.</p></li>
+                    <li class="pain-item reveal"><span class="pain-icon"><svg aria-hidden="true"><use href="#i-eye"/></svg></span><p>Ordenás, investigás, mirás tutoriales: todo menos lo que de verdad tenías que hacer.</p></li>
+                    <li class="pain-item reveal"><span class="pain-icon"><svg aria-hidden="true"><use href="#i-stack"/></svg></span><p>Sentís que si no lo vas a hacer perfecto, mejor ni empezar.</p></li>
+                </ul>
+                <p class="pain-close reveal">Si algo de esto te resulta familiar, no estás solo ni sola. Y, sobre todo, no es porque te falte algo.</p>
+            </div>
+        </section>
+
+        <!-- 4. Reencuadre -->
+        <section class="section section-alt" aria-labelledby="reframe-title">
+            <div class="container reframe-grid">
+                <div>
+                    <p class="eyebrow">Otra forma de mirarlo</p>
+                    <h2 id="reframe-title">No es falta de voluntad. Es una forma de <span class="u">protegerte</span></h2>
+                    <p>Postergar suele explicarse como pereza o desorganización. Desde la <strong>Terapia de Aceptación y Compromiso (ACT)</strong> lo entendemos de otra manera: muchas veces dejamos para después aquello que nos genera una emoción incómoda. Postergar alivia en el momento… y por eso se repite.</p>
+                    <p class="quote reveal">Por eso esta guía no se trata de exigirte más, sino de aprender a moverte hacia lo que te importa aun cuando aparece la incomodidad.</p>
+                </div>
+                <div class="reframe-cards">
+                    <div class="reframe-card reveal">
+                        <h3>Evitar lo que incomoda</h3>
+                        <p>Aburrimiento, inseguridad, miedo a no saber cómo hacerlo. Postergar baja ese malestar por un rato, aunque después vuelva con intereses.</p>
+                    </div>
+                    <div class="reframe-card reveal">
+                        <h3>El perfeccionismo</h3>
+                        <p>Cuando la vara está tan alta que empezar ya se siente como un examen, no empezar parece la opción más segura.</p>
+                    </div>
+                    <div class="reframe-card reveal">
+                        <h3>El miedo a fallar</h3>
+                        <p>Si no lo intentás, no te pueden evaluar. El problema es que tampoco avanzás hacia lo que querés construir.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Qué vas a encontrar -->
+        <section class="section" aria-labelledby="inside-title">
+            <div class="container narrow">
+                <div class="center">
+                    <p class="eyebrow">Qué vas a encontrar</p>
+                    <h2 id="inside-title">Una guía corta, clara y para <span class="u">usar</span></h2>
+                    <p class="lead">Nada de teoría eterna. Cada capítulo combina explicación sencilla y práctica concreta.</p>
+                </div>
+                <div class="pillars">
+                    <div class="pillar reveal">
+                        <svg aria-hidden="true"><use href="#i-brain"/></svg>
+                        <strong>11</strong><span>Capítulos</span>
+                        <p>Para entender qué te frena y qué hacer con eso.</p>
+                    </div>
+                    <div class="pillar reveal">
+                        <svg aria-hidden="true"><use href="#i-lotus"/></svg>
+                        <strong aria-hidden="true">✓</strong><span>Ejercicios prácticos</span>
+                        <p>Para pasar de leer a hacer, a tu ritmo.</p>
+                    </div>
+                    <div class="pillar reveal">
+                        <svg aria-hidden="true"><use href="#i-calendar"/></svg>
+                        <strong>7</strong><span>Días de plan</span>
+                        <p>Un recorrido día por día para dar el primer paso.</p>
+                    </div>
+                </div>
+
+                <div class="acc">
+                    <button class="acc-btn" type="button" aria-expanded="false" aria-controls="chapters-panel" id="chapters-btn">
+                        Ver el índice completo
+                        <span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span>
+                    </button>
+                    <div class="acc-panel" id="chapters-panel" role="region" aria-labelledby="chapters-btn" hidden>
+                        <ol class="chapters" id="chapters-list"></ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Plan de 7 días -->
+        <section class="section section-warm" aria-labelledby="plan-title">
+            <div class="container">
+                <div class="center narrow" style="margin: 0 auto;">
+                    <p class="eyebrow">El plan de 7 días</p>
+                    <h2 id="plan-title">Una semana para pasar de la intención a la <span class="u">acción</span></h2>
+                    <p class="lead">Pasos pequeños y concretos, pensados para que empezar se vuelva posible, incluso en semanas complicadas.</p>
+                </div>
+                <ol class="plan" id="plan-days"></ol>
+            </div>
+        </section>
+
+        <!-- 7. Para quién es / no es -->
+        <section class="section" aria-labelledby="fit-title">
+            <div class="container">
+                <div class="center narrow" style="margin: 0 auto;">
+                    <p class="eyebrow">Con honestidad</p>
+                    <h2 id="fit-title">¿Es para vos?</h2>
+                </div>
+                <div class="fit-grid">
+                    <div class="fit-card fit-yes reveal">
+                        <h3>Es para vos si…</h3>
+                        <ul>
+                            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Hay algo importante que venís postergando hace tiempo.</span></li>
+                            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Probaste listas, apps y métodos de productividad, y no alcanzó.</span></li>
+                            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Querés entender qué te frena sin juzgarte por eso.</span></li>
+                            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Buscás herramientas simples que puedas aplicar en tu día a día.</span></li>
+                        </ul>
+                    </div>
+                    <div class="fit-card fit-no reveal">
+                        <h3>No es para vos si…</h3>
+                        <ul>
+                            <li><svg aria-hidden="true"><use href="#i-x"/></svg><span>Buscás una solución mágica o resultados sin poner nada de tu parte.</span></li>
+                            <li><svg aria-hidden="true"><use href="#i-x"/></svg><span>Querés un sistema de productividad empresarial o de gestión de proyectos.</span></li>
+                            <li><svg aria-hidden="true"><use href="#i-x"/></svg><span>Estás atravesando un momento de mucho malestar emocional: <strong>este libro no reemplaza un tratamiento psicológico</strong>. En ese caso, lo más indicado es consultar con un profesional.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Sobre la autora -->
+        <section class="section section-alt" aria-labelledby="author-title">
+            <div class="container author">
+                <div class="author-photo reveal">
+                    <img src="../fotocandela.jpeg" width="768" height="1024" loading="lazy" decoding="async"
+                         alt="Retrato de la Lic. Candela Hidalgo, psicóloga clínica y autora de Mañana empiezo">
+                </div>
+                <div>
+                    <p class="eyebrow">Sobre la autora</p>
+                    <h2 id="author-title">Lic. Candela Hidalgo</h2>
+                    <div class="author-meta">
+                        <span class="chip">Psicóloga clínica</span>
+                        <span class="chip">M.P. 49169</span>
+                        <span class="chip">Enfoque integrativo</span>
+                    </div>
+                    <p>Soy psicóloga clínica y atiendo en mi consultorio de Pinamar y de forma online. Trabajo desde un enfoque integrativo, con herramientas de la Terapia Cognitivo Conductual, la Terapia de Aceptación y Compromiso (ACT), el Psicoanálisis y la Psicología Gestáltica.</p>
+                    <p>En consulta escucho seguido la misma frase: <em>“mañana empiezo”</em>. Escribí esta guía para acercar, de forma simple, herramientas que uso todos los días en el consultorio, para que puedas empezar a ponerlas en práctica a tu ritmo.</p>
+                    <a href="../" class="link">Conocé mi espacio terapéutico&nbsp;→</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Testimonios (solo se muestran si hay en config.js) -->
+        <section class="section" id="testimonios" aria-labelledby="testi-title" hidden>
+            <div class="container">
+                <div class="center">
+                    <p class="eyebrow">Lectores</p>
+                    <h2 id="testi-title">Lo que comentan quienes lo leyeron</h2>
+                </div>
+                <div class="testi-grid" id="testimonios-list"></div>
+            </div>
+        </section>
+
+        <!-- 10. Oferta -->
+        <section class="section section-warm" id="oferta" aria-labelledby="offer-title">
+            <div class="container">
+                <div class="offer reveal">
+                    <div class="offer-media">
+                        <img src="img/mockup-960.webp" srcset="img/mockup-640.webp 640w, img/mockup-960.webp 960w"
+                             sizes="(min-width: 900px) 480px, 90vw" width="960" height="640" loading="lazy" decoding="async"
+                             alt="Ebook Mañana empiezo en versión digital">
+                    </div>
+                    <div>
+                        <p class="eyebrow">Tu próximo paso</p>
+                        <h2 id="offer-title">Empezá hoy con <span class="u">Mañana empiezo</span></h2>
+                        <ul class="includes">
+                            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Ebook completo en PDF: <strong>11 capítulos</strong> basados en ACT</span></li>
+                            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><strong>Ejercicios prácticos</strong> para aplicar mientras leés</span></li>
+                            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><strong>Plan de 7 días</strong> para dar el primer paso</span></li>
+                            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Lectura en celular, tablet o computadora</span></li>
+                            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Acceso inmediato por email y para siempre</span></li>
+                        </ul>
+                        <div class="price-line">
+                            <span class="price" data-price>USD 9,99</span>
+                            <span class="price-old" data-price-old hidden></span>
+                            <span class="price-note">pago único · se cobra en tu moneda local</span>
+                        </div>
+                        <a href="#oferta" class="btn btn-buy btn-lg btn-block" data-buy="oferta" style="margin-top: 1rem;">Quiero empezar hoy <svg class="arrow" width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                        <p class="payments"><svg aria-hidden="true"><use href="#i-card"/></svg><span>Tarjeta, transferencia y medios locales según tu país. Pago procesado de forma segura por Hotmart.</span></p>
+                        <div class="seal">
+                            <span class="seal-badge" aria-hidden="true"><span data-garantia>7</span><small>días</small></span>
+                            <p><strong>Garantía de <span data-garantia>7</span> días.</strong> Si sentís que no es para vos, pedís el reembolso y listo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. Garantía -->
+        <section class="section" aria-labelledby="guarantee-title">
+            <div class="container narrow">
+                <div class="guarantee reveal">
+                    <span class="seal-badge" aria-hidden="true"><span data-garantia>7</span><small>días</small></span>
+                    <div>
+                        <h2 id="guarantee-title">Probalo sin riesgo durante <span data-garantia>7</span> días</h2>
+                        <p>La compra está protegida por la garantía de Hotmart. Si dentro de los <span data-garantia>7</span> días sentís que la guía no te sirve, pedís el reembolso desde tu cuenta de Hotmart o desde el email de compra, sin explicaciones ni preguntas incómodas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. FAQ -->
+        <section class="section section-alt" aria-labelledby="faq-title">
+            <div class="container narrow">
+                <div class="center">
+                    <p class="eyebrow">Preguntas frecuentes</p>
+                    <h2 id="faq-title">Antes de empezar</h2>
+                </div>
+                <div style="margin-top: 2rem;">
+                    <div class="acc">
+                        <button class="acc-btn" type="button" aria-expanded="false" aria-controls="faq-1" id="faq-1-btn" data-faq>¿En qué formato llega?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></button>
+                        <div class="acc-panel" id="faq-1" role="region" aria-labelledby="faq-1-btn" hidden><p>Es un ebook en PDF. Lo podés leer en el celular, la tablet o la computadora, y también imprimirlo si te resulta más cómodo para hacer los ejercicios.</p></div>
+                    </div>
+                    <div class="acc">
+                        <button class="acc-btn" type="button" aria-expanded="false" aria-controls="faq-2" id="faq-2-btn" data-faq>¿Cómo lo recibo?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></button>
+                        <div class="acc-panel" id="faq-2" role="region" aria-labelledby="faq-2-btn" hidden><p>Apenas se confirma el pago, Hotmart te envía un email con el acceso para descargarlo. Si no lo ves en unos minutos, revisá las carpetas de spam o promociones.</p></div>
+                    </div>
+                    <div class="acc">
+                        <button class="acc-btn" type="button" aria-expanded="false" aria-controls="faq-3" id="faq-3-btn" data-faq>¿Puedo pagar desde mi país y en mi moneda?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></button>
+                        <div class="acc-panel" id="faq-3" role="region" aria-labelledby="faq-3-btn" hidden><p>Sí. El pago se hace a través de Hotmart, que muestra el precio convertido a tu moneda y ofrece los medios de pago disponibles en tu país (tarjeta, transferencia u opciones locales).</p></div>
+                    </div>
+                    <div class="acc">
+                        <button class="acc-btn" type="button" aria-expanded="false" aria-controls="faq-4" id="faq-4-btn" data-faq>¿Es un tratamiento psicológico?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></button>
+                        <div class="acc-panel" id="faq-4" role="region" aria-labelledby="faq-4-btn" hidden><p>No. Es un material psicoeducativo: te ayuda a entender qué pasa cuando postergás y te propone herramientas para empezar. No reemplaza la atención psicológica. Si estás atravesando un momento difícil, te recomiendo consultar con un profesional.</p></div>
+                    </div>
+                    <div class="acc">
+                        <button class="acc-btn" type="button" aria-expanded="false" aria-controls="faq-5" id="faq-5-btn" data-faq>¿Cuánto tiempo me lleva?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></button>
+                        <div class="acc-panel" id="faq-5" role="region" aria-labelledby="faq-5-btn" hidden><p>Es una lectura breve, pensada para hacerse en pocos ratos. El plan de 7 días propone una práctica corta por día: no necesitás horas libres para empezar.</p></div>
+                    </div>
+                    <div class="acc">
+                        <button class="acc-btn" type="button" aria-expanded="false" aria-controls="faq-6" id="faq-6-btn" data-faq>¿Qué pasa si no me sirve?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></button>
+                        <div class="acc-panel" id="faq-6" role="region" aria-labelledby="faq-6-btn" hidden><p>Tenés <span data-garantia>7</span> días de garantía. Si sentís que no es para vos, pedís el reembolso a través de Hotmart y te devuelven el dinero.</p></div>
+                    </div>
+                    <div class="acc">
+                        <button class="acc-btn" type="button" aria-expanded="false" aria-controls="faq-7" id="faq-7-btn" data-faq>¿Necesito saber algo de ACT?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></button>
+                        <div class="acc-panel" id="faq-7" role="region" aria-labelledby="faq-7-btn" hidden><p>Para nada. La guía explica todo en lenguaje simple y con ejemplos cotidianos. No hace falta ningún conocimiento previo de psicología.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 13. Cierre -->
+        <section class="closing" aria-labelledby="closing-title">
+            <div class="container narrow">
+                <h2 id="closing-title">Lo que venís postergando puede empezar con un paso <span class="u">pequeño</span></h2>
+                <p>No hace falta esperar a tener ganas, ni a que todo esté en orden. Hace falta un primer paso posible. Esta guía te acompaña a darlo.</p>
+                <div class="closing-ctas">
+                    <a href="#oferta" class="btn btn-buy btn-lg" data-buy="cierre"><span>Quiero empezar hoy · <span data-price>USD 9,99</span></span></a>
+                    <span class="price-note">Descarga inmediata · Garantía de <span data-garantia>7</span> días</span>
+                    <a href="#" class="link wa-link" data-wa target="_blank" rel="noopener">¿Tenés dudas? Escribime por WhatsApp</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 14. Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© <span data-year>2026</span> Lic. Candela Hidalgo · M.P. 49169 · <a href="../">candelahidalgo.com.ar</a></p>
+            <p class="disclaimer">Este material es psicoeducativo y no reemplaza la atención psicológica profesional.</p>
+        </div>
+    </footer>
+
+    <!-- CTA sticky (solo mobile) -->
+    <div class="sticky-cta" id="sticky-cta" aria-hidden="true">
+        <div>
+            <div class="s-title">Mañana empiezo</div>
+            <div class="s-price"><span data-price>USD 9,99</span> · PDF</div>
+        </div>
+        <a href="#oferta" class="btn btn-buy" data-buy="sticky" tabindex="-1">Empezar hoy</a>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="landing.js"></script>
+</body>
+</html>

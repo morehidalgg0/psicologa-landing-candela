@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Test gratuito: ¿Qué te frena a empezar? · Mañana empiezo</title>
+    <meta name="description" content="Un test breve de 7 preguntas para descubrir qué está detrás de la postergación, con un ejercicio basado en ACT para hacer hoy. Por la Lic. Candela Hidalgo, psicóloga clínica.">
+    <link rel="canonical" href="https://candelahidalgo.com.ar/mananaempiezo/test.html">
+    <meta name="theme-color" content="#FDF4E9">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_LA">
+    <meta property="og:site_name" content="Lic. Candela Hidalgo">
+    <meta property="og:title" content="Test gratuito: ¿Qué te frena a empezar?">
+    <meta property="og:description" content="7 preguntas, 2 minutos y un ejercicio para hacer hoy. Basado en ACT.">
+    <meta property="og:url" content="https://candelahidalgo.com.ar/mananaempiezo/test.html">
+    <meta property="og:image" content="https://candelahidalgo.com.ar/mananaempiezo/img/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Test gratuito: ¿Qué te frena a empezar?">
+    <meta name="twitter:description" content="7 preguntas, 2 minutos y un ejercicio para hacer hoy. Basado en ACT.">
+    <meta name="twitter:image" content="https://candelahidalgo.com.ar/mananaempiezo/img/og-image.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="landing.css">
+    <link rel="stylesheet" href="test.css">
+    <link rel="icon" href="img/portada-480.webp" type="image/webp">
+    <script>document.documentElement.classList.add('js');</script>
+</head>
+<body data-page="test" class="page-simple">
+
+    <header class="topbar">
+        <div class="container">
+            <a href="./" class="brand" data-keep-utm>Mañana&nbsp;<em>empiezo</em></a>
+            <a href="../" class="byline">por Lic. Candela Hidalgo</a>
+        </div>
+    </header>
+
+    <main class="section quiz-wrap" id="contenido">
+        <div class="container narrow">
+
+            <!-- Intro -->
+            <section class="card quiz-screen" id="screen-intro" aria-labelledby="intro-title">
+                <span class="badge">Test gratuito · 2 minutos</span>
+                <h1 id="intro-title" tabindex="-1">¿Qué te frena a <span class="u">empezar</span>?</h1>
+                <p class="lead">Siete preguntas para conocer qué suele estar detrás de lo que venís postergando. Al final vas a recibir una explicación breve y <strong>un ejercicio para hacer hoy</strong>.</p>
+                <ul class="intro-points">
+                    <li>No hay respuestas correctas: elegí la que más se parezca a lo que te pasa.</li>
+                    <li>Es una herramienta de autoconocimiento, no un diagnóstico.</li>
+                </ul>
+                <button type="button" class="btn btn-buy btn-lg btn-block" id="btn-start">Empezar el test</button>
+            </section>
+
+            <!-- Preguntas -->
+            <section class="card quiz-screen" id="screen-quiz" hidden aria-live="polite">
+                <div class="progress">
+                    <div class="progress-meta"><span id="q-count">Pregunta 1 de 7</span><button type="button" class="back-btn" id="btn-back">← Anterior</button></div>
+                    <div class="progress-track" role="progressbar" aria-label="Progreso del test" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0" id="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+                <h2 class="q-title" id="q-title" tabindex="-1"></h2>
+                <div class="options" id="q-options" role="group" aria-labelledby="q-title"></div>
+            </section>
+
+            <!-- Captura de datos (opcional) -->
+            <section class="card quiz-screen" id="screen-lead" hidden aria-labelledby="lead-title">
+                <span class="badge">¡Listo!</span>
+                <h2 id="lead-title" tabindex="-1">Tu resultado está listo</h2>
+                <p>Si querés, dejá tus datos y te escribo con recursos sobre tu resultado. Es <strong>opcional</strong>: podés ver el resultado igual.</p>
+                <form id="lead-form" novalidate>
+                    <div class="field">
+                        <label for="lead-name">Nombre</label>
+                        <input id="lead-name" name="nombre" type="text" autocomplete="given-name" maxlength="80">
+                    </div>
+                    <div class="field">
+                        <label for="lead-email">Email</label>
+                        <input id="lead-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="160">
+                    </div>
+                    <div class="field">
+                        <label for="lead-wa">WhatsApp <span class="opt">(opcional si dejás email)</span></label>
+                        <input id="lead-wa" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" maxlength="40" placeholder="Con código de país, ej. +54 9 11…">
+                    </div>
+                    <label class="check">
+                        <input type="checkbox" id="lead-consent" name="consentimiento">
+                        <span>Acepto que la Lic. Candela Hidalgo guarde estos datos para contactarme con información sobre mi resultado y su ebook. Puedo pedir que los borre cuando quiera.</span>
+                    </label>
+                    <p class="form-error" id="lead-error" role="alert" hidden></p>
+                    <button type="submit" class="btn btn-buy btn-lg btn-block" id="btn-lead">Enviar y ver mi resultado</button>
+                </form>
+                <button type="button" class="skip-btn" id="btn-skip">Ver mi resultado sin dejar datos</button>
+            </section>
+
+            <!-- Resultado -->
+            <section class="quiz-screen" id="screen-result" hidden aria-labelledby="result-title">
+                <div class="card">
+                    <p class="eyebrow">Tu resultado</p>
+                    <h2 id="result-title" tabindex="-1"></h2>
+                    <div id="result-body"></div>
+                </div>
+
+                <div class="card exercise">
+                    <p class="eyebrow">Ejercicio para hacer hoy</p>
+                    <h3 id="exercise-title"></h3>
+                    <ol class="steps" id="exercise-steps"></ol>
+                </div>
+
+                <div class="card result-cta">
+                    <div class="result-cta-grid">
+                        <img src="img/portada-480.webp" width="480" height="720" loading="lazy" decoding="async" alt="Portada del ebook Mañana empiezo">
+                        <div>
+                            <p class="eyebrow">Para seguir profundizando</p>
+                            <h3>Esto lo trabajamos en <span id="result-chapter">el libro</span></h3>
+                            <p><strong>Mañana empiezo</strong> es una guía basada en ACT con 11 capítulos, ejercicios prácticos y un plan de 7 días para empezar lo que venís postergando.</p>
+                            <div class="price-line" style="margin: 0.8rem 0;">
+                                <span class="price" data-price>USD 9,99</span>
+                                <span class="price-old" data-price-old hidden></span>
+                                <span class="price-note">Descarga inmediata</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <a href="#" class="btn btn-buy btn-lg btn-block" data-buy="test-resultado">Quiero el ebook</a>
+                        <a href="./" class="btn btn-ghost btn-block" data-keep-utm>Conocer más sobre el libro</a>
+                    </div>
+                </div>
+                <p class="disclaimer-small">Este test es orientativo y no constituye un diagnóstico. Si lo que te pasa te genera mucho malestar, te recomiendo consultar con un profesional de la salud mental.</p>
+                <button type="button" class="skip-btn" id="btn-restart">Hacer el test de nuevo</button>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer" style="padding-bottom: 2rem;">
+        <div class="container">
+            <p>© <span data-year>2026</span> Lic. Candela Hidalgo · M.P. 49169 · <a href="../">candelahidalgo.com.ar</a></p>
+            <p class="disclaimer">Este material es psicoeducativo y no reemplaza la atención psicológica profesional.</p>
+        </div>
+    </footer>
+
+    <!-- Neon (mismo cliente anónimo que usa la home para los turnos) -->
+    <script type="module" src="../neon-config.js"></script>
+    <script src="config.js"></script>
+    <script src="landing.js"></script>
+    <script src="test.js"></script>
+</body>
+</html>
